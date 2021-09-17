@@ -1,11 +1,19 @@
-import { Dimensions, Platform, Text, View } from "react-native";
-import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createIconSetFromFontello } from 'react-native-vector-icons';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const routes = () => {
+import Template from '../components/containers/Template';
 
+const Stack = createNativeStackNavigator();
+
+const rootRoutes = () => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="Home" component={Template} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
 
-export default routes;
+export default rootRoutes;

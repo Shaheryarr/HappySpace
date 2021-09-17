@@ -3,84 +3,84 @@ import {
     SafeAreaView,
     Text,
     View,
-    Dimensions
+    Dimensions,
+    KeyboardAvoidingView,
+    Platform,
 } from 'react-native';
 import { themeStyleSheet } from '../../../constants';
+import Buttons from '../../common/Buttons';
 import TextField from '../../common/TextField';
 import styles from './styles';
 
 const { width, height } = Dimensions.get('screen');
 
 const Login = ({ navigation, dispatch }) => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onChange = (text, type) => {
+        if (type == 'email') {
+            setEmail(text);
+        } else if (type == 'password') {
+            setPassword(text);
+        }
+    }
+
+    const navigateToForgotPassword = () => {
+
+    }
+
+    const navigateToRegister = () => {
+
+    }
+
+    const onLogin = () => {
+        alert(email + password)
+    }
+
     return (
         <>
-            <SafeAreaView style={{ flex:0, backgroundColor: themeStyleSheet.white }} />
+            <SafeAreaView style={styles.notchContainer} />
             <SafeAreaView
                 style={styles.container}
             >
-                <View
-                    style={{
-                        backgroundColor: themeStyleSheet.white,
-                        height: height * 0.8,
-                        width,
-                        borderBottomLeftRadius: 35,
-                        borderBottomRightRadius: 35,
-                        justifyContent: "space-between"
-                    }}
-                >
-                    <View
-                        style={{
-                            height: '60%',
-                            // backgroundColor: the,
-                            alignItems: "center",
-                            justifyContent: 'space-evenly'
-                            // width: width * 0.8,
-                        }}
+                <View style={styles.upperView}>
+                    <KeyboardAvoidingView
+                        style={styles.inputView}
+                        behavior={Platform.OS == 'ios' ? 'padding' : undefined}
                     >
-                        <Text
-                            style={{
-                                textAlign: 'left',
-                                width: width * 0.8,
-                                fontSize: 18,
-                                fontWeight: 'bold'
-                            }}
-                        >Welcome Back...</Text>
-                        <Text
-                            style={{
-                                textAlign: 'left',
-                                width: width * 0.8,
-                                fontSize: 16,
-                            }}
-                        >Log in to your workspace</Text>
+                        <Text style={styles.heading}>Welcome Back...</Text>
+                        <Text style={styles.subHeading}>Log in to your workspace</Text>
                         <TextField
                             placeholder="Enter Email Address"
                             placeholderTextColor={themeStyleSheet.lightgray}
                             label={'Email Address'}
+                            onChange={(text) => onChange(text, 'email')}
                         />
                         <TextField
-                            placeholder="Enter Email Address"
+                            placeholder="********"
                             placeholderTextColor={themeStyleSheet.lightgray}
-                            label={'Email Address'}
+                            label={'Password'}
+                            secureTextEntry={true}
+                            onChange={(text) => onChange(text, 'password')}
                         />
                         <Text
-                            style={{
-                                textAlign: 'left',
-                                width: width * 0.8,
-                                fontSize: 16,
-                                color: themeStyleSheet.mainColor,
-                                fontWeight: 'bold'
-                            }}
+                            onPress={navigateToForgotPassword}
+                            style={styles.forgotText}
                         >Forgot Password?</Text>
-                    </View>
-                    <View />
+                        <Buttons
+                            title={'LOG IN'}
+                            onPress={onLogin}
+                        />
+                    </KeyboardAvoidingView>
                 </View>
-                <View
-                    style={{
-                        width,
-                        paddingVertical: 20,
-                    }}
-                >
-                    <Text>asd</Text>
+                <View style={styles.lowerView}>
+                    <Text style={{ color: themeStyleSheet.white }}>Not Registered Yet? </Text>
+                    <Text
+                        onPress={navigateToRegister}
+                        style={styles.registerText}
+                    >Register Now</Text>
                 </View>
             </SafeAreaView>
         </>

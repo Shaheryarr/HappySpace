@@ -1,16 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SplashScreen from '../components/containers/SplashScreen';
 
-import Template from '../components/containers/Template';
 
 const Stack = createNativeStackNavigator();
 
 const rootRoutes = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Home" component={Template} />
+            <Stack.Navigator initialRouteName={'SplashScreen'}>
+                <Stack.Screen name="SplashScreen" component={SplashScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

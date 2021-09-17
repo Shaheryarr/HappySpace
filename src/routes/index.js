@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreen from '../components/containers/SplashScreen';
 import Login from '../components/containers/Login';
 
 import SplashScreen from '../components/containers/SplashScreen';

@@ -14,10 +14,23 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 35
   },
   bottomContainer: {
-    height: '20%', 
+    height: '15%', 
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  subText: {
+    color: themeStyleSheet.white,
+    fontSize: 16,
+    marginTop: 25
+  },
+  mainText: {
+    fontWeight: 'bold'
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: -30,
+    alignSelf: 'center'
   }
 });
 

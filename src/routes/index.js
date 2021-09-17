@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 const rootRoutes = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={'SplashScreen'} screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName={'GettingStarted'} screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="GettingStarted" component={GettingStarted} />
                 <Stack.Screen name="SplashScreen" component={SplashScreen} />
             </Stack.Navigator>

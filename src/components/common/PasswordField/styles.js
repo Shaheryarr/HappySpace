@@ -16,11 +16,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingVertical: 0,
     color: 'black',
+    flex: 6,
   },
   labelStyle: {
     marginLeft: 10,
     fontSize: 10,
     marginBottom: 5,
+  },
+  icon: {
+    color: themeStyleSheet.mainColor,
+    flex: 1,
+  },
+  row: {
+    flexDirection: 'row',
   },
 });
 

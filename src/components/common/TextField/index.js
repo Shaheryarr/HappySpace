@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    Dimensions,
-} from 'react-native';
+import {View, Text, TextInput, Dimensions} from 'react-native';
 import styles from './styles';
 
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 
 const TextField = ({
     placeholder,

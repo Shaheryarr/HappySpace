@@ -31,6 +31,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: -30,
     alignSelf: 'center'
+  },
+  carouselContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  carouselItem: {
+    height: '90%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

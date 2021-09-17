@@ -15,15 +15,12 @@ const TextField = ({
     onChange,
     autoFocus,
     placeholderTextColor,
-    label
+    label,
+    secureTextEntry
 }) => {
     return (
-        <View
-            style={styles.inputContainer}
-        >
-            <Text
-                style={styles.labelStyle}
-            >{label}</Text>
+        <View style={styles.inputContainer}>
+            <Text style={styles.labelStyle}>{label}</Text>
             <TextInput
                 placeholder={placeholder}
                 value={value}
@@ -32,6 +29,8 @@ const TextField = ({
                 placeholderTextColor={placeholderTextColor}
                 style={styles.textStyle}
                 returnKeyType='go'
+                secureTextEntry={secureTextEntry}
+                onChangeText={(text) => onChange(text)}
             />
         </View>
     )

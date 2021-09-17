@@ -6,11 +6,12 @@ const styles = StyleSheet.create({
     mainContainer: {
         borderRadius: 35,
         overflow: 'hidden',
+
     },
     container: {
-        height: height * 0.08,
+        height: height * 0.07,
         paddingHorizontal: 25,
-        // width: width * 0.7,
+        width: width * 0.8,
         backgroundColor: themeStyleSheet.secondaryColor,
         justifyContent: 'center',
         alignItems: 'center',

@@ -3,4 +3,5 @@ export const themeStyleSheet = {
     secondaryColor: '#c4d9ff',
     white: '#FFFFFF',
     darkGray: '#414143',
+    lightgray: 'lightgray',
 }

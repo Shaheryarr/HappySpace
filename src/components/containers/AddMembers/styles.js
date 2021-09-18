@@ -4,7 +4,7 @@ const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   inputView: {
-    height: '98%',
+    height: '99%',
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
@@ -21,17 +21,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 15,
   },
-  forgotText: {
-    textAlign: 'left',
-    width: width * 0.8,
-    fontSize: 16,
-    color: themeStyleSheet.mainColor,
-    fontWeight: 'bold',
+  list: {
+    width: '70%',
+    height: '50%',
+    alignSelf: 'center',
   },
-  loginText: {
-    color: themeStyleSheet.white,
-    fontWeight: 'bold',
-    fontSize: 16,
+  listItem: {
+    padding: 10,
+    paddingHorizontal: 15,
+    margin: 5,
+    alignSelf: 'center',
+    backgroundColor: themeStyleSheet.lightgray,
+    borderRadius: 5,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  listItemText: {
+    color: themeStyleSheet.darkGray,
+    flexWrap: 'wrap',
+  },
+  icon: {
+    color: themeStyleSheet.darkGray,
   },
 });
 

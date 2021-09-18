@@ -54,7 +54,7 @@ const OnboardEmployee = ({ navigation, route }) => {
                         style={styles.inputView}
                         behavior={Platform.OS == 'ios' ? 'padding' : undefined}
                     >
-                        <Text style={styles.heading}>{`Welcome, ${email}`}</Text>
+                        <Text style={styles.heading}>{`Welcome`}</Text>
                         <Text style={styles.subHeading}>{`Let's set up your HappySpace`}</Text>
                         <TextField
                             placeholder="********"
@@ -82,7 +82,7 @@ const OnboardEmployee = ({ navigation, route }) => {
                     </KeyboardAvoidingView>
                 </View>
                 <View style={styles.lowerView}>
-                    <Text style={{ color: themeStyleSheet.white }}>Not Registered Yet? </Text>
+                    <Text style={{ color: themeStyleSheet.white }}>{`Not ${email}? `}</Text>
                     <Text
                         // onPress={navigateToRegister}
                         style={styles.registerText}

@@ -49,6 +49,7 @@ const TextField = ({
               onChangeText={text => onChange(text)}
               textContentType={textContentType}
               keyboardType={keyboardType}
+              autoCapitalize={'none'}
             />
           </View>
           {textContentType == 'password' && (

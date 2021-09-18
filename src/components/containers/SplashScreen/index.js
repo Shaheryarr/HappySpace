@@ -54,6 +54,7 @@ const SplashScreen = ({ navigation }) => {
             <Text onPress={() => navigate('Signup')} >SIGNUP</Text>
             <Text onPress={() => navigate('GettingStarted')} >GETTINGSTARTED</Text>
             <Text onPress={() => navigate('OtpVerification')}>OTP</Text>
+            <Text onPress={() => navigate('appRoutes')}>Home</Text>
         </SafeAreaView>
     )
 }

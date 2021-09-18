@@ -5,13 +5,16 @@ import CustomHeader from '../../common/CustomHeader';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { createPost, postImageBase64 } from '../../../SyncServices';
 
 const CreatePost = ({ navigation }) => {
 
     const [text, setText] = useState('');
     const [image, setImage] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const user = useSelector(state => state.user);
+    const workspace = useSelector(state => state.workspace);
 
     const config = {
         mediaType: 'photo',
@@ -48,16 +51,45 @@ const CreatePost = ({ navigation }) => {
     }
 
     const handleSave = () => {
-        alert('save')
+        if (image) {
+            let params = {
+                image_name: image.base64
+            }
+
+            setLoading(true)
+
+            postImageBase64(params).then(res => {
+                const { message } = res;
+                
+                handleCreatePost(message.image_url)
+            })
+        } else {
+            setLoading(true)
+
+            handleCreatePost()
+        }
     }
-        
+
+    const handleCreatePost = (url = false) => {
+        let params2 = {
+            workspace_id: workspace.workspace_id,
+            content: text,
+            image_url: url
+        }
+
+        createPost(params2).then(res => {
+            setLoading(false)
+            navigation.goBack()
+        })
+    }
+
     return (
         <>
             <SafeAreaView style={styles.notchContainer} />
             <SafeAreaView style={styles.mainContainer}>
                 <CustomHeader firstIcon={'chevron-left'} onPressFirstIcon={handleBackAction} save={text || image ? true : false} onPressThirdIcon={handleSave} title={'Create a Post'} />
 
-                <ScrollView style={{flex: 1}}>
+                <ScrollView style={{ flex: 1 }}>
                     <View style={styles.postContainer}>
                         <View style={styles.postFirstRow}>
                             <View style={styles.initialContainer}>
@@ -67,6 +99,7 @@ const CreatePost = ({ navigation }) => {
 
                         <View style={styles.postSecondRow}>
                             <TextInput
+                                autoFocus
                                 placeholder={`Hey ${user.name}! What's new?`}
                                 style={styles.textInputContainer}
                                 multiline
@@ -94,7 +127,7 @@ const CreatePost = ({ navigation }) => {
                         </View>
                     ) : (
                         <View style={styles.imageContainer}>
-                            <Image source={{uri: image.uri}} style={styles.image} resizeMode='contain' />
+                            <Image source={{ uri: image.uri }} style={styles.image} resizeMode='contain' />
 
                             <TouchableOpacity style={styles.editImageContainer} onPress={handleRemoveImage}>
                                 <View style={styles.editImage}>

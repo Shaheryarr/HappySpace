@@ -4,12 +4,42 @@ import {
   ADD_WORKSPACE,
   CHANGE_PASSWORD_API,
   LOGIN_API,
+  MANAGE_POSTS,
   OTP_VERIFY_API,
   REQUEST_PASSWORD_API,
   RESEND_OTP_API,
   RESET_PASSWORD_API,
   SIGNUP_API,
+  UPLOAD_IMAGE_API,
 } from './apis';
+
+export const createPost = params => {
+    return new Promise((resolve, reject) => {
+        axios.put(MANAGE_POSTS, params, {
+            withCredentials: true
+        }).then(res => {
+            console.log('createPost res: ', res.data);
+            resolve(res.data);
+        }).catch(err => {
+            console.log('createPost err: ', err.response.data);
+            reject(err);
+        })
+    })
+}
+
+export const postImageBase64 = params => {
+    return new Promise((resolve, reject) => {
+        axios.post(UPLOAD_IMAGE_API, params, {
+            withCredentials: true
+        }).then(res => {
+            console.log('postImageBase64 res: ', res.data);
+            resolve(res.data);
+        }).catch(err => {
+            console.log('postImageBase64 err: ', err.response.data);
+            reject(err);
+        })
+    })
+}
 
 export const postLoginRequest = params => {
   return new Promise((resolve, reject) => {

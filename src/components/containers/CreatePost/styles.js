@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     bottom: 25,
+    borderTopWidth: 0.5,
+    borderColor: themeStyleSheet.lightgray
     // position: 'absolute'
   },
   uploadImageIconContainer: {
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 8
+    marginRight: 8,
   },
   icon: {
     color: themeStyleSheet.mainColor
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: width,
-    height: height * 0.8
+    height: height * 0.7
   },
   editImageContainer: {
     position: 'absolute',

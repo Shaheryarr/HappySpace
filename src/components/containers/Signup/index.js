@@ -125,7 +125,8 @@ const Signup = ({ navigation, dispatch }) => {
           })
 
           navigation.navigate('OtpVerification', {
-            email
+            email,
+            fromLogin: true,
           });
         }).catch(err => {
           setLoading(false);

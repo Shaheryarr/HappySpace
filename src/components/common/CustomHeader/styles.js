@@ -16,6 +16,34 @@ const styles = StyleSheet.create({
     },
     icon: {
         color: themeStyleSheet.mainColor
+    },
+    headingContainer: {
+        height: '100%',
+        width: '40%',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+    },
+    heading: {
+        fontSize: 18,
+        fontWeight: '500',
+        // color: themeStyleSheet.mainColor
+    },
+    secondIconContainer: {
+        height: '100%',
+        width: '20%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    saveContainer: {
+        backgroundColor: themeStyleSheet.mainColor,
+        height: '50%',
+        width: '90%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 15
+    },
+    saveText: {
+        color: themeStyleSheet.white
     }
 });
 

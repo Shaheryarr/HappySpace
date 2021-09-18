@@ -4,7 +4,7 @@ const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   inputView: {
-    height: '98%',
+    height: '50%',
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },

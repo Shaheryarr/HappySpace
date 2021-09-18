@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
 
     },
-    container: {
+    containerSecondary: {
         height: height * 0.07,
         paddingHorizontal: 25,
         width: width * 0.8,
@@ -18,10 +18,25 @@ const styles = StyleSheet.create({
         borderRadius: 35,
         elevation: 1,
     },
-    textStyle: {
+    textStyleSecondary: {
         fontSize: 16,
         fontWeight: 'bold',
         color: themeStyleSheet.mainColor
+    },
+    containerPrimary: {
+        height: height * 0.07,
+        paddingHorizontal: 25,
+        width: width * 0.8,
+        backgroundColor: themeStyleSheet.mainColor,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 35,
+        elevation: 1,
+    },
+    textStylePrimary: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: themeStyleSheet.white
     }
 });
 

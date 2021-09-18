@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View, Dimensions } from 'react-native';
+import { SafeAreaView, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import Button from '../../common/Buttons';
 import Carousel from 'react-native-snap-carousel';
@@ -7,13 +7,23 @@ import Carousel from 'react-native-snap-carousel';
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 1);
 
-const GettingStarted = () => {
+const test = [{
+    name: 'tes'
+}, {
+    name: 'ss'
+}]
 
-    let test = [{
-        name: 'tes'
-    }, {
-        name: 'ss'
-    }]
+const GettingStarted = ({ navigation }) => {
+
+    const [data, setData] = useState([...test])
+
+    const handleSignUp = () => {
+        //
+    }
+
+    const handleLogin = () => {
+        //
+    }
 
     const renderItem = ({ item, index }) => {
         return (
@@ -30,21 +40,24 @@ const GettingStarted = () => {
                 <View style={styles.topContainer}>
                     <View style={styles.carouselContainer}>
                         <Carousel
-                            data={test}
+                            data={data}
                             renderItem={renderItem}
                             sliderWidth={SLIDER_WIDTH}
                             itemWidth={ITEM_WIDTH}
                             inactiveSlideShift={0}
+                            enableSnap
                         />
                     </View>
 
                     <View style={styles.buttonContainer}>
-                        <Button title={'Create Your Own Workspace'} />
+                        <Button title={'Create Your Own Workspace'} onPress={handleSignUp} />
                     </View>
                 </View>
 
                 <View style={styles.bottomContainer}>
-                    <Text style={styles.subText}>Already Registered? <Text style={styles.mainText}>Login</Text></Text>
+                    <TouchableOpacity onPress={handleLogin}>
+                        <Text style={styles.subText}>Already Registered? <Text style={styles.mainText}>Login</Text></Text>
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
         </>

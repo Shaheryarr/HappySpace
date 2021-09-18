@@ -117,6 +117,7 @@ const Login = ({ navigation, dispatch }) => {
                             style={styles.forgotText}
                         >Forgot Password?</Text>
                         <Buttons
+                            type='primary'
                             title={'LOG IN'}
                             onPress={onLogin}
                         />

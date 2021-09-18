@@ -1,5 +1,5 @@
 import axios from "axios"
-import { LOGIN_API, OTP_VERIFY_API, SIGNUP_API } from "./apis"
+import { CHANGE_PASSWORD_API, LOGIN_API, OTP_VERIFY_API, REQUEST_PASSWORD_API, RESET_PASSWORD_API, SIGNUP_API } from "./apis"
 
 export const postLoginRequest = (params) => {
     return new Promise((resolve, reject) => {
@@ -38,6 +38,48 @@ export const postOtpVerify = (params) => {
             resolve(res.data)
         }).catch(err => {
             console.log('postOtpVerify err: ', err.response.data);
+            reject(err)
+        })
+    })
+}
+
+export const changePassword = (PARAMS) => {
+    return new Promise((resolve, reject) => {
+        axios.post(CHANGE_PASSWORD_API, PARAMS, {
+            withCredentials: true
+        }).then(res => {
+            console.log('changePassword res: ', res.data);
+            resolve(res.data)
+        }).catch(err => {
+            console.log('changePassword err: ', err.response.data);
+            reject(err)
+        })
+    })
+}
+
+export const resetPassword = (PARAMS) => {
+    return new Promise((resolve, reject) => {
+        axios.post(RESET_PASSWORD_API, PARAMS, {
+            withCredentials: true
+        }).then(res => {
+            console.log('resetPassword res: ', res.data);
+            resolve(res.data)
+        }).catch(err => {
+            console.log('resetPassword err: ', err.response.data);
+            reject(err)
+        })
+    })
+}
+
+export const requestPassword = (PARAMS) => {
+    return new Promise((resolve, reject) => {
+        axios.post(REQUEST_PASSWORD_API, PARAMS, {
+            withCredentials: true
+        }).then(res => {
+            console.log('requestPassword res: ', res.data);
+            resolve(res.data)
+        }).catch(err => {
+            console.log('requestPassword err: ', err.response.data);
             reject(err)
         })
     })

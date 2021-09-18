@@ -8,8 +8,9 @@ import {
     Platform,
     Keyboard,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { EMAIL_PATTERN, isInternetConnected, themeStyleSheet } from '../../../constants';
-import { postLoginRequest } from '../../../SyncServices';
+import { postLoginRequest, requestPassword } from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
 import TextField from '../../common/TextField';
 import styles from './styles';
@@ -25,6 +26,7 @@ const Login = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+    const [modal, setModal] = useState(false);
 
     const Toast = useToast();
 
@@ -42,15 +44,15 @@ const Login = ({ navigation }) => {
         }
     }
 
-    const navigateToForgotPassword = () => {
-
+    const forgotModal = () => {
+        setModal(!modal);
     }
 
     const navigateToRegister = () => {
         navigation.navigate('Signup')
     }
 
-    const validateInput = () => {
+    const validateInput = (onlyEmail = false) => {
         let isValid = true;
         let obj = {};
         if (email) {
@@ -65,6 +67,9 @@ const Login = ({ navigation }) => {
             obj = {
                 email: 'Email address is required'
             }
+        }
+        if (onlyEmail == true) {
+            if (isValid == true) return isValid; else return obj.email;
         }
         if (password) {
             if (password.length < 8) {
@@ -110,7 +115,7 @@ const Login = ({ navigation }) => {
 
                         dispatch(setUser(userDetails)).then(() => {
                             setLoading(false)
-                            
+
                             navigation.navigate('SelectWorkspace', {
                                 workspaces: user_workspaces
                             })
@@ -137,6 +142,22 @@ const Login = ({ navigation }) => {
             }).catch(err => {
                 Toast.show({
                     title: 'Please connect to the internet'
+                })
+            })
+        }
+    }
+
+    const onResetPassword = () => {
+        if (validateInput(true) != true) setErrors({ email2: validateInput(true) })
+        else {
+            const PARAMS = {
+                email,
+            }
+            requestPassword(PARAMS).then(res => {
+                alert('We have sent you a link on your email!')
+            }).catch(err => {
+                Toast.show({
+                    title: 'Something went wrong'
                 })
             })
         }
@@ -172,7 +193,7 @@ const Login = ({ navigation }) => {
                         // returnKeyType={'go'}
                         />
                         <Text
-                            onPress={navigateToForgotPassword}
+                            onPress={forgotModal}
                             style={styles.forgotText}
                         >Forgot Password?</Text>
                         <Buttons
@@ -191,6 +212,41 @@ const Login = ({ navigation }) => {
                     >Register Now</Text>
                 </View>
             </SafeAreaView>
+            <Modal
+                isVisible={modal}
+                avoidKeyboard={true}
+                style={{
+                    margin: 0,
+                }}
+                onBackdropPress={forgotModal}
+                onBackButtonPress={forgotModal}
+            >
+                <View
+                    style={{
+                        paddingVertical: 40,
+                        backgroundColor: themeStyleSheet.white,
+                        justifyContent: 'center',
+                        width: width,
+                        alignSelf: 'center',
+                        borderRadius: 20,
+                        alignItems: 'center'
+                    }}
+                >
+                    <TextField 
+                        autoFocus={true}
+                        placeholder="Enter Email Address"
+                        placeholderTextColor={themeStyleSheet.lightgray}
+                        label={'Email Address'}
+                        onChange={(text) => onChange(text, 'email')}
+                        error={errors.email2}
+                        textContentType={'emailAddress'}
+                    />
+                    <Buttons 
+                        onPress={onResetPassword}
+                        title="RESET PASSWORD"
+                    />
+                </View>
+            </Modal>
         </>
     )
 }

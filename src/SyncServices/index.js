@@ -1,5 +1,5 @@
 import axios from "axios"
-import { LOGIN_API, SIGNUP_API } from "./apis"
+import { LOGIN_API, OTP_VERIFY_API, SIGNUP_API } from "./apis"
 
 export const postLoginRequest = (params) => {
     return new Promise((resolve, reject) => {
@@ -24,6 +24,20 @@ export const postSignUpRequest = (params) => {
             resolve(res.data)
         }).catch(err => {
             console.log('postSignUpRequest err: ', err.response.data);
+            reject(err)
+        })
+    })
+}
+
+export const postOtpVerify = (params) => {
+    return new Promise((resolve, reject) => {
+        axios.post(OTP_VERIFY_API, params, {
+            withCredentials: true
+        }).then(res => {
+            console.log('postOtpVerify res: ', res.data);
+            resolve(res.data)
+        }).catch(err => {
+            console.log('postOtpVerify err: ', err.response.data);
             reject(err)
         })
     })

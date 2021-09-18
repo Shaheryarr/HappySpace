@@ -56,6 +56,11 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  loaderContainer: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: 50
   }
 });
 

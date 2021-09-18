@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { height, width } = Dimensions.get("window");
 
-const CustomHeader = ({ firstIcon, onPressFirstIcon, title }) => {
+const CustomHeader = ({ firstIcon, onPressFirstIcon, title, secondIcon, save, thirdIcon, onPressThirdIcon }) => {
     return (
         <View style={styles.mainContainer}>
             <TouchableOpacity style={styles.firstIconContainer} onPress={onPressFirstIcon}>
@@ -15,6 +15,20 @@ const CustomHeader = ({ firstIcon, onPressFirstIcon, title }) => {
             <View style={styles.headingContainer}>
                 <Text style={styles.heading}>{title}</Text>
             </View>
+
+            <TouchableOpacity style={styles.secondIconContainer}>
+                <Icon name={secondIcon} style={styles.icon} size={40} />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.secondIconContainer} onPress={onPressThirdIcon}>
+                {save ? (
+                    <View style={styles.saveContainer}>
+                        <Text style={styles.saveText}>Post</Text>
+                    </View>
+                ) : (
+                    <Icon name={thirdIcon} style={styles.icon} size={40} />
+                )}
+            </TouchableOpacity>
         </View>
     )
 }

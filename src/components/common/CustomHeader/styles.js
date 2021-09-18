@@ -19,14 +19,31 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         height: '100%',
-        width: '50%',
+        width: '40%',
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
     heading: {
-        color: themeStyleSheet.mainColor,
         fontSize: 18,
-        // fontWeight: '700'
+        fontWeight: '500',
+        // color: themeStyleSheet.mainColor
+    },
+    secondIconContainer: {
+        height: '100%',
+        width: '20%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    saveContainer: {
+        backgroundColor: themeStyleSheet.mainColor,
+        height: '50%',
+        width: '90%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 15
+    },
+    saveText: {
+        color: themeStyleSheet.white
     }
 });
 

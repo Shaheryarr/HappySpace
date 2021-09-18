@@ -7,6 +7,8 @@ import { isInternetConnected, themeStyleSheet } from '../../../constants';
 import { Spinner, useToast } from 'native-base';
 import { postOtpVerify } from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../redux/actions';
 
 const OtpVerification = ({ navigation, route }) => {
 
@@ -18,7 +20,7 @@ const OtpVerification = ({ navigation, route }) => {
     const [resendCode, setResendCode] = useState(false);
 
     const otpRef = useRef()
-
+    const dispatch = useDispatch();
     const Toast = useToast();
 
     useEffect(() => {
@@ -44,15 +46,26 @@ const OtpVerification = ({ navigation, route }) => {
                 }
 
                 postOtpVerify(params).then(res => {
-                    setLoading(false)
+                    const { name, designation } = res;
 
                     //Create user in redux
-
-                    if(params.fromLogin) {
-                        //Choose Workspace
-                    } else {
-                        //Create Workspace
+                    let userDetails = {
+                        name,
+                        email,
+                        designation,
                     }
+
+                    dispatch(setUser(userDetails)).then(() => {
+                        setLoading(false)
+
+                        if (params.fromLogin) {
+                            navigation.navigate('SelectWorkspace', {
+                                workspaces: []
+                            })
+                        } else {
+                            //Create Workspace
+                        }
+                    })
                 }).catch(err => {
                     setLoading(false)
                     setResendCode(true)

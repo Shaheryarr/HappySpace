@@ -14,10 +14,12 @@ import Buttons from '../../common/Buttons';
 import TextField from '../../common/TextField';
 import styles from './styles';
 import { useToast } from 'native-base';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../redux/actions';
 
 const { width, height } = Dimensions.get('screen');
 
-const Login = ({ navigation, dispatch }) => {
+const Login = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,6 +27,8 @@ const Login = ({ navigation, dispatch }) => {
     const [loading, setLoading] = useState(false);
 
     const Toast = useToast();
+
+    const dispatch = useDispatch();
 
     const onChange = (text, type) => {
         setErrors({
@@ -95,15 +99,21 @@ const Login = ({ navigation, dispatch }) => {
                 setLoading(true)
 
                 postLoginRequest(params).then(res => {
-                    const { isActive, user_workspaces } = res;
-
-                    setLoading(false)
+                    const { isActive, user_workspaces, designation, name } = res;
 
                     if (isActive) {
-                        //Save user details to redux
+                        let userDetails = {
+                            name,
+                            email,
+                            designation,
+                        }
 
-                        navigation.navigate('SelectWorkspace', {
-                            workspaces: user_workspaces
+                        dispatch(setUser(userDetails)).then(() => {
+                            setLoading(false)
+                            
+                            navigation.navigate('SelectWorkspace', {
+                                workspaces: user_workspaces
+                            })
                         })
                     } else {
                         Toast.show({

@@ -4,12 +4,12 @@ import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { themeStyleSheet } from '../../../constants';
 import styles from './styles';
 
-const Buttons = ({ title, onPress, type, loading }) => {
+const Buttons = ({ title, onPress, type, loading, disabled }) => {
     return type == 'primary' ? (
         <View style={styles.mainContainer}>
-            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} disabled={loading ? true : false} onPress={onPress}>
-                <View style={styles.containerPrimary}>
-                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={styles.textStylePrimary}>{title.toUpperCase()}</Text>}
+            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} disabled={loading || disabled ? true : false} onPress={onPress}>
+                <View style={disabled ? styles.containerPrimaryDisabled : styles.containerPrimary}>
+                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={disabled ? styles.textStylePrimaryDisabled : styles.textStylePrimary}>{title.toUpperCase()}</Text>}
                 </View>
             </TouchableNativeFeedback>
         </View>

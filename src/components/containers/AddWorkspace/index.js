@@ -1,3 +1,4 @@
+import {Toast} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
@@ -7,7 +8,14 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {EMAIL_PATTERN, themeStyleSheet} from '../../../constants';
+import {useDispatch} from 'react-redux';
+import {
+  EMAIL_PATTERN,
+  isInternetConnected,
+  themeStyleSheet,
+} from '../../../constants';
+import {setWorkspaceData} from '../../../redux/actions';
+import {createWorkspace} from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
 import OutlineContainer from '../../common/OutlineContainer';
 import TextField from '../../common/TextField';
@@ -15,7 +23,8 @@ import styles from './styles';
 
 const {width, height} = Dimensions.get('screen');
 
-const AddWorkspace = ({navigation, dispatch}) => {
+const AddWorkspace = ({navigation}) => {
+  const dispatch = useDispatch();
   const [workspace, setWorkspace] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -41,7 +50,40 @@ const AddWorkspace = ({navigation, dispatch}) => {
   const addWorkspace = () => {
     if (validateInput() != true) setError(validateInput());
     else {
-      alert('all good');
+      isInternetConnected()
+        .then(() => {
+          setLoading(true);
+
+          let PARAMS = {
+            workspace_name: workspace,
+            workspace_image: '',
+          };
+          console.log('PARAMS', PARAMS);
+          createWorkspace(PARAMS)
+            .then(res => {
+              const {status, workspace_id: id, workspace_name: name} = res;
+              console.log({id, name});
+              if (status)
+                dispatch(setWorkspaceData({id, name})).then(() => {
+                  setLoading(false);
+                  navigation.navigate('AddMembers', {
+                    workspace: {id, name},
+                  });
+                });
+            })
+            .catch(err => {
+              setLoading(false);
+
+              Toast.show({
+                title: err.response.data.message,
+              });
+            });
+        })
+        .catch(err => {
+          Toast.show({
+            title: 'Please connect to the internet',
+          });
+        });
     }
   };
 
@@ -64,6 +106,7 @@ const AddWorkspace = ({navigation, dispatch}) => {
             type="primary"
             title={'ADD WORKSPACE'}
             onPress={addWorkspace}
+            loading={loading}
           />
         </KeyboardAvoidingView>
       </OutlineContainer>

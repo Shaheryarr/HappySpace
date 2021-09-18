@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {EMAIL_PATTERN, themeStyleSheet} from '../../../constants';
 import Buttons from '../../common/Buttons';
+import OutlineContainer from '../../common/OutlineContainer';
 import TextField from '../../common/TextField';
 import styles from './styles';
 
@@ -34,8 +35,6 @@ const Signup = ({navigation, dispatch}) => {
     });
     setForm({...form, [type]: text});
   };
-
-  const navigateToForgotPassword = () => {};
 
   const navigateToLogin = () => {
     navigation.navigate('Login');
@@ -109,73 +108,68 @@ const Signup = ({navigation, dispatch}) => {
 
   return (
     <>
-      <SafeAreaView style={styles.notchContainer} />
-      <SafeAreaView style={styles.container}>
-        <View style={styles.upperView}>
-          <KeyboardAvoidingView
-            style={styles.inputView}
-            behavior={Platform.OS == 'ios' ? 'padding' : undefined}>
-            <Text style={styles.heading}>Welcome To HappySpace</Text>
-            <Text style={styles.subHeading}>
-              Join a workspace to stay happy
+      <OutlineContainer
+        lowerView={
+          <>
+            <Text style={{color: themeStyleSheet.white}}>
+              Already have an account?{' '}
             </Text>
-            <TextField
-              placeholder="Enter Name"
-              placeholderTextColor={themeStyleSheet.lightgray}
-              label={'Full Name'}
-              onChange={text => onChange(text, 'name')}
-              error={errors.name}
-              textContentType={'name'}
-            />
-            <TextField
-              placeholder="Enter Email Address"
-              placeholderTextColor={themeStyleSheet.lightgray}
-              label={'Email Address'}
-              onChange={text => onChange(text, 'email')}
-              error={errors.email}
-              textContentType={'emailAddress'}
-              keyboardType="email-address"
-            />
-            <TextField
-              placeholder="********"
-              placeholderTextColor={themeStyleSheet.lightgray}
-              label={'Password'}
-              secureTextEntry={true}
-              onChange={text => onChange(text, 'password')}
-              error={errors.password}
-              textContentType={'password'}
-              // returnKeyType={'go'}
-            />
-            <TextField
-              placeholder="********"
-              placeholderTextColor={themeStyleSheet.lightgray}
-              label={'Confirm Password'}
-              secureTextEntry={true}
-              onChange={text => onChange(text, 'c_password')}
-              error={errors.c_password}
-              textContentType={'password'}
-              // returnKeyType={'go'}
-            />
-            <TextField
-              placeholder="Enter Designation"
-              placeholderTextColor={themeStyleSheet.lightgray}
-              label={'Designation'}
-              onChange={text => onChange(text, 'designation')}
-              error={errors.designation}
-              textContentType={'none'}
-            />
-            <Buttons type="primary" title={'SIGN UP'} onPress={onSignup} />
-          </KeyboardAvoidingView>
-        </View>
-        <View style={styles.lowerView}>
-          <Text style={{color: themeStyleSheet.white}}>
-            Already have an account?{' '}
-          </Text>
-          <Text onPress={navigateToLogin} style={styles.loginText}>
-            Login
-          </Text>
-        </View>
-      </SafeAreaView>
+            <Text onPress={navigateToLogin} style={styles.loginText}>
+              Login
+            </Text>
+          </>
+        }>
+        <KeyboardAvoidingView style={styles.inputView} behavior={'padding'}>
+          <Text style={styles.heading}>Welcome To HappySpace</Text>
+          <Text style={styles.subHeading}>Join a workspace to stay happy</Text>
+          <TextField
+            placeholder="Enter Name"
+            placeholderTextColor={themeStyleSheet.lightgray}
+            label={'Full Name'}
+            onChange={text => onChange(text, 'name')}
+            error={errors.name}
+            textContentType={'name'}
+          />
+          <TextField
+            placeholder="Enter Email Address"
+            placeholderTextColor={themeStyleSheet.lightgray}
+            label={'Email Address'}
+            onChange={text => onChange(text, 'email')}
+            error={errors.email}
+            textContentType={'emailAddress'}
+            keyboardType="email-address"
+          />
+          <TextField
+            placeholder="********"
+            placeholderTextColor={themeStyleSheet.lightgray}
+            label={'Password'}
+            secureTextEntry={true}
+            onChange={text => onChange(text, 'password')}
+            error={errors.password}
+            textContentType={'password'}
+            // returnKeyType={'go'}
+          />
+          <TextField
+            placeholder="********"
+            placeholderTextColor={themeStyleSheet.lightgray}
+            label={'Confirm Password'}
+            secureTextEntry={true}
+            onChange={text => onChange(text, 'c_password')}
+            error={errors.c_password}
+            textContentType={'password'}
+            // returnKeyType={'go'}
+          />
+          <TextField
+            placeholder="Enter Designation"
+            placeholderTextColor={themeStyleSheet.lightgray}
+            label={'Designation'}
+            onChange={text => onChange(text, 'designation')}
+            error={errors.designation}
+            textContentType={'none'}
+          />
+          <Buttons type="primary" title={'SIGN UP'} onPress={onSignup} />
+        </KeyboardAvoidingView>
+      </OutlineContainer>
     </>
   );
 };

@@ -7,8 +7,11 @@ import { themeStyleSheet } from '../../../constants';
 
 const OtpVerification = ({ navigation, route }) => {
 
-    const [email, setEmail] = useState('sherryssj7@gmail.com');
+    const { params } = route;
+
+    const [email, setEmail] = useState(params.email);
     const [code, setCode] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const otpRef = useRef()
 

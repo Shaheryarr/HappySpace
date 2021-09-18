@@ -109,7 +109,9 @@ const Login = ({ navigation, dispatch }) => {
                             duration: 5000
                         })
 
-                        //Navigate to OTP
+                        navigation.navigate('OtpVerification', {
+                            email
+                        });
                     }
                 }).catch(err => {
                     setLoading(false)

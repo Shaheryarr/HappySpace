@@ -1,7 +1,10 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { themeStyleSheet } from '../constants';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Login from '../components/containers/Login';
 import SplashScreen from '../components/containers/SplashScreen';
@@ -15,9 +18,7 @@ import SelectWorkspace from '../components/containers/SelectWorkspace';
 import NewsFeed from '../components/containers/NewsFeed';
 import Profile from '../components/containers/Profile';
 import Menu from '../components/containers/Menu';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { themeStyleSheet } from '../constants';
-import { Dimensions, Platform } from 'react-native';
+import CreatePost from '../components/containers/CreatePost';
 
 const { height, width } = Dimensions.get("window");
 
@@ -69,6 +70,7 @@ const appRoutes = () => {
     return (
         <Stack.Navigator initialRouteName={'SplashScreen'} screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Tabs" component={Tabs} />
+            <Stack.Screen name="CreatePost" component={CreatePost} />
         </Stack.Navigator>
     )
 }

@@ -1,29 +1,31 @@
+import { Spinner } from 'native-base';
 import React from 'react';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
+import { themeStyleSheet } from '../../../constants';
 import styles from './styles';
 
-const Buttons = ({ title, onPress, type, style }) => {
+const Buttons = ({ title, onPress, type, loading }) => {
     return type == 'primary' ? (
         <View style={styles.mainContainer}>
-            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} onPress={onPress}>
+            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} disabled={loading ? true : false} onPress={onPress}>
                 <View style={styles.containerPrimary}>
-                    <Text style={styles.textStylePrimary}>{title.toUpperCase()}</Text>
+                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={styles.textStylePrimary}>{title.toUpperCase()}</Text>}
                 </View>
             </TouchableNativeFeedback>
         </View>
     ) : type == 'secondary' ? (
         <View style={styles.mainContainer}>
-            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} onPress={onPress}>
+            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} disabled={loading ? true : false} onPress={onPress}>
                 <View style={styles.containerSecondary}>
-                    <Text style={styles.textStyleSecondary}>{title.toUpperCase()}</Text>
+                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={styles.textStyleSecondary}>{title.toUpperCase()}</Text>}
                 </View>
             </TouchableNativeFeedback>
         </View>
     ) : (
         <View style={styles.mainContainer}>
-            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} onPress={onPress}>
+            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} disabled={loading ? true : false} onPress={onPress}>
                 <View style={styles.containerSecondary}>
-                    <Text style={styles.textStyleSecondary}>{title.toUpperCase()}</Text>
+                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={styles.textStyleSecondary}>{title.toUpperCase()}</Text>}
                 </View>
             </TouchableNativeFeedback>
         </View>

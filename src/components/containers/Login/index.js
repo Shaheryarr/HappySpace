@@ -1,4 +1,3 @@
-import { Toast } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
     SafeAreaView,
@@ -7,12 +6,14 @@ import {
     Dimensions,
     KeyboardAvoidingView,
     Platform,
+    Keyboard,
 } from 'react-native';
 import { EMAIL_PATTERN, isInternetConnected, themeStyleSheet } from '../../../constants';
 import { postLoginRequest } from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
 import TextField from '../../common/TextField';
 import styles from './styles';
+import { useToast } from 'native-base';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -22,6 +23,8 @@ const Login = ({ navigation, dispatch }) => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+
+    const Toast = useToast();
 
     const onChange = (text, type) => {
         setErrors({
@@ -79,6 +82,8 @@ const Login = ({ navigation, dispatch }) => {
     }
 
     const onLogin = () => {
+        Keyboard.dismiss()
+
         if (validateInput() != true) setErrors(validateInput())
         else {
             isInternetConnected().then(() => {
@@ -87,28 +92,38 @@ const Login = ({ navigation, dispatch }) => {
                     password
                 }
 
+                setLoading(true)
+
                 postLoginRequest(params).then(res => {
-                    alert('logged in')
-                }).catch(err => {
-                    const { status, active } = err.response.data;
+                    const { isActive } = res;
 
-                    if(active) {
-                        Toast.show({
-                            text: 'We have sent a one time password to your email. Please verify'
-                        })
+                    setLoading(false)
 
-                        //Navigate to OTP
+                    if (isActive) {
+                        alert('logged in')
+
+                        //Save user details to redux
                     } else {
                         Toast.show({
-                            text: 'Invalid Credentials'
+                            title: 'We have sent a one time password to your email. Please verify',
+                            duration: 5000
                         })
 
-                        return;
+                        navigation.navigate('OtpVerification', {
+                            email
+                        });
                     }
+                }).catch(err => {
+                    setLoading(false)
+
+                    Toast.show({
+                        title: 'Invalid Credentials'
+                    })
+                    return;
                 })
             }).catch(err => {
                 Toast.show({
-                    text: 'Please connect to the internet'
+                    title: 'Please connect to the internet'
                 })
             })
         }
@@ -150,6 +165,7 @@ const Login = ({ navigation, dispatch }) => {
                         <Buttons
                             type='primary'
                             title={'LOG IN'}
+                            loading={loading}
                             onPress={onLogin}
                         />
                     </KeyboardAvoidingView>

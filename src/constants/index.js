@@ -7,6 +7,7 @@ export const themeStyleSheet = {
     darkGray: '#414143',
     lightgray: 'lightgray',
     red: '#ff1717',
+    skyBlue: '#27aae1',
 }
 
 export const EMAIL_PATTERN = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

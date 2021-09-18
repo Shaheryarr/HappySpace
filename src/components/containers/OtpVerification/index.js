@@ -106,7 +106,7 @@ const OtpVerification = ({ navigation, route }) => {
                             textInputStyle={styles.codeContainer}
                             tintColor={themeStyleSheet.mainColor}
                             handleTextChange={(text) => handleChange(text)}
-                            inputCount={6}
+                            inputCount={4}
                             keyboardType="numeric"
                         />
                     </View>

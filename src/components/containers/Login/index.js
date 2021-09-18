@@ -1,3 +1,4 @@
+import { Toast } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
     SafeAreaView,
@@ -7,7 +8,8 @@ import {
     KeyboardAvoidingView,
     Platform,
 } from 'react-native';
-import { EMAIL_PATTERN, themeStyleSheet } from '../../../constants';
+import { EMAIL_PATTERN, isInternetConnected, themeStyleSheet } from '../../../constants';
+import { postLoginRequest } from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
 import TextField from '../../common/TextField';
 import styles from './styles';
@@ -63,7 +65,7 @@ const Login = ({ navigation, dispatch }) => {
                 obj = {
                     ...obj,
                     password: 'Password must be more than 8 characters'
-                }   
+                }
             }
         } else {
             isValid = false;
@@ -79,7 +81,36 @@ const Login = ({ navigation, dispatch }) => {
     const onLogin = () => {
         if (validateInput() != true) setErrors(validateInput())
         else {
-            alert('all good')
+            isInternetConnected().then(() => {
+                let params = {
+                    email,
+                    password
+                }
+
+                postLoginRequest(params).then(res => {
+                    alert('logged in')
+                }).catch(err => {
+                    const { status, active } = err.response.data;
+
+                    if(active) {
+                        Toast.show({
+                            text: 'We have sent a one time password to your email. Please verify'
+                        })
+
+                        //Navigate to OTP
+                    } else {
+                        Toast.show({
+                            text: 'Invalid Credentials'
+                        })
+
+                        return;
+                    }
+                })
+            }).catch(err => {
+                Toast.show({
+                    text: 'Please connect to the internet'
+                })
+            })
         }
     }
 
@@ -110,7 +141,7 @@ const Login = ({ navigation, dispatch }) => {
                             onChange={(text) => onChange(text, 'password')}
                             error={errors.password}
                             textContentType={'password'}
-                            // returnKeyType={'go'}
+                        // returnKeyType={'go'}
                         />
                         <Text
                             onPress={navigateToForgotPassword}

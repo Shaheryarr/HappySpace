@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
 import { Linking, SafeAreaView, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const SplashScreen = ({ navigation }) => {
+
+    const user = useSelector(state => state.user);
 
     useEffect(() => {
         Linking.getInitialURL().then(res => {
             formatLink(res);
         })
+
+        console.log('User: ', user)
 
         const subscribe = Linking.addEventListener('url', handleLink);
 

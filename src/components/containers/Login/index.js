@@ -95,14 +95,16 @@ const Login = ({ navigation, dispatch }) => {
                 setLoading(true)
 
                 postLoginRequest(params).then(res => {
-                    const { isActive } = res;
+                    const { isActive, user_workspaces } = res;
 
                     setLoading(false)
 
                     if (isActive) {
-                        alert('logged in')
-
                         //Save user details to redux
+
+                        navigation.navigate('SelectWorkspace', {
+                            workspaces: user_workspaces
+                        })
                     } else {
                         Toast.show({
                             title: 'We have sent a one time password to your email. Please verify',

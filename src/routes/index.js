@@ -10,6 +10,7 @@ import AddWorkspace from '../components/containers/AddWorkspace';
 import AddMembers from '../components/containers/AddMembers';
 import Signup from '../components/containers/SignUp';
 import OtpVerification from '../components/containers/OtpVerification';
+import SelectWorkspace from '../components/containers/SelectWorkspace';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ const rootRoutes = () => {
         <Stack.Screen name="AddMembers" component={AddMembers} />
         <Stack.Screen name="OnboardEmployee" component={OnboardEmployee} />
         <Stack.Screen name="OtpVerification" component={OtpVerification} />
+        <Stack.Screen name="SelectWorkspace" component={SelectWorkspace} />
       </Stack.Navigator>
     </NavigationContainer>
   );

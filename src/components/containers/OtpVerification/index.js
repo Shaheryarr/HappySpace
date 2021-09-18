@@ -13,7 +13,7 @@ import styles from './styles';
 import OTPTextView from 'react-native-otp-textinput';
 import { isInternetConnected, themeStyleSheet } from '../../../constants';
 import { Spinner, useToast } from 'native-base';
-import { postOtpVerify } from '../../../SyncServices';
+import { postOtpVerify, resendOtp } from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../redux/actions';
@@ -25,14 +25,14 @@ const OtpVerification = ({ navigation, route }) => {
     const [email, setEmail] = useState(params.email);
     const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
-    const [resendCode, setResendCode] = useState(true);
+    const [resendCode, setResendCode] = useState(false);
 
     const otpRef = useRef()
     const dispatch = useDispatch();
     const Toast = useToast();
 
     useEffect(() => {
-        // otpRef.current.clear()
+        otpRef.current.clear()
     }, [])
 
     const handleBackAction = () => {
@@ -42,18 +42,18 @@ const OtpVerification = ({ navigation, route }) => {
     const handleChange = (text) => {
         setCode(text)
 
-        if (text.length == 6) {
+        if (text.length == 4) {
             Keyboard.dismiss()
 
             isInternetConnected().then(() => {
                 setLoading(true)
 
-                let params = {
+                let PARAMS = {
                     email,
-                    verification_code: code
+                    verification_code: text
                 }
-
-                postOtpVerify(params).then(res => {
+                console.log('PARAMS', PARAMS);
+                postOtpVerify(PARAMS).then(res => {
                     const { name, designation } = res;
 
                     //Create user in redux
@@ -65,7 +65,7 @@ const OtpVerification = ({ navigation, route }) => {
 
                     dispatch(setUser(userDetails)).then(() => {
                         setLoading(false)
-
+                        console.log('route params', params);
                         if (params.fromLogin) {
                             navigation.navigate('SelectWorkspace', {
                                 workspaces: []
@@ -93,6 +93,17 @@ const OtpVerification = ({ navigation, route }) => {
     const handleResendCode = () => {
         otpRef.current.clear()
         setResendCode(false)
+        const PARAMS = {
+            email,
+        }
+        resendOtp(PARAMS).then(res => {
+            console.log('res', res);
+        }).catch(err => {
+            console.log('err', err);
+            Toast.show({
+                title: 'Something went wrong'
+            })
+        })
     }
 
     return (

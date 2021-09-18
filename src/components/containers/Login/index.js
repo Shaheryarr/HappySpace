@@ -190,7 +190,6 @@ const Login = ({ navigation }) => {
                             onChange={(text) => onChange(text, 'password')}
                             error={errors.password}
                             textContentType={'password'}
-                        // returnKeyType={'go'}
                         />
                         <Text
                             onPress={forgotModal}
@@ -215,24 +214,12 @@ const Login = ({ navigation }) => {
             <Modal
                 isVisible={modal}
                 avoidKeyboard={true}
-                style={{
-                    margin: 0,
-                }}
+                style={{ margin: 0 }}
                 onBackdropPress={forgotModal}
                 onBackButtonPress={forgotModal}
             >
-                <View
-                    style={{
-                        paddingVertical: 40,
-                        backgroundColor: themeStyleSheet.white,
-                        justifyContent: 'center',
-                        width: width,
-                        alignSelf: 'center',
-                        borderRadius: 20,
-                        alignItems: 'center'
-                    }}
-                >
-                    <TextField 
+                <View style={styles.modalContainer}>
+                    <TextField
                         autoFocus={true}
                         placeholder="Enter Email Address"
                         placeholderTextColor={themeStyleSheet.lightgray}
@@ -241,7 +228,7 @@ const Login = ({ navigation }) => {
                         error={errors.email2}
                         textContentType={'emailAddress'}
                     />
-                    <Buttons 
+                    <Buttons
                         onPress={onResetPassword}
                         title="RESET PASSWORD"
                     />

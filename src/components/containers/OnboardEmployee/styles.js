@@ -56,7 +56,20 @@ const styles = StyleSheet.create({
         color: themeStyleSheet.white,
         fontWeight: 'bold',
         fontSize: 16,
-    }
+    },
+    otpContainer: {
+        width: '90%',
+    },
+    codeContainer: {
+        borderWidth: 3,
+        borderRadius: 15,
+    },
+    mainOtpContainer: {
+        height: height * 0.12,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
 
 export default styles;

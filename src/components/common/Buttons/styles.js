@@ -32,11 +32,28 @@ const styles = StyleSheet.create({
         borderRadius: 35,
         elevation: 1,
     },
+    containerPrimaryDisabled: {
+        height: height * 0.07,
+        paddingHorizontal: 25,
+        width: width * 0.8,
+        backgroundColor: themeStyleSheet.white,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 35,
+        elevation: 1,
+        borderWidth: 2,
+        borderColor: themeStyleSheet.lightgray
+    },
     textStylePrimary: {
         fontSize: 16,
         fontWeight: 'bold',
         color: themeStyleSheet.white
-    }
+    },
+    textStylePrimaryDisabled: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: themeStyleSheet.lightgray
+    },
 });
 
 export default styles;

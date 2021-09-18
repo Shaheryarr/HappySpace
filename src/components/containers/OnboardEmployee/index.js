@@ -1,3 +1,4 @@
+import { useToast } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import {
     SafeAreaView,
@@ -7,7 +8,10 @@ import {
     KeyboardAvoidingView,
     Platform,
 } from 'react-native';
-import { EMAIL_PATTERN, themeStyleSheet } from '../../../constants';
+import OTPTextView from 'react-native-otp-textinput';
+import { useSelector } from 'react-redux';
+import { themeStyleSheet } from '../../../constants';
+import { changePassword, resetPassword } from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
 import TextField from '../../common/TextField';
 import styles from './styles';
@@ -18,7 +22,11 @@ const OnboardEmployee = ({ navigation, route }) => {
     const [confirm, setConfirm] = useState(false);
     const [errors, setErrors] = useState({})
 
-    const { email } = route.params;
+    const user = useSelector(state => state.user);
+
+    const { email, user_workspaces, origin = 'onboard', otp = '' } = route.params;
+
+    const Toast = useToast();
 
     const onChange = (text, type) => {
         setErrors({
@@ -42,7 +50,48 @@ const OnboardEmployee = ({ navigation, route }) => {
                 confirm: 'Please verify your password'
             })
         } else {
-            alert('good')
+            if (origin == 'forgot') {
+                const PARAMS = {
+                    email,
+                    verification_code: otp,
+                    password,
+                }
+                resetPassword(PARAMS).then(res => {
+                    navigation.reset({
+                        routes: [
+                            {
+                                name: 'SelectWorkspace',
+                                params: {
+                                    // workspaces: user_workspaces
+                                }
+                            }
+                        ]
+                    });
+                })
+            } else {
+                const PARAMS = {
+                    password
+                }
+                changePassword(PARAMS).then(res => {
+                    if (res.status == true) {
+                        navigation.reset({
+                            routes: [
+                                {
+                                    name: 'SelectWorkspace',
+                                    params: {
+                                        workspaces: user_workspaces
+                                    }
+                                }
+                            ]
+                        });
+                    }
+                }).catch(err => {
+                    console.log("Err", err);
+                    Toast.show({
+                        title: 'Something went wrong'
+                    })
+                })
+            }
         }
     }
     return (
@@ -56,6 +105,18 @@ const OnboardEmployee = ({ navigation, route }) => {
                     >
                         <Text style={styles.heading}>{`Welcome`}</Text>
                         <Text style={styles.subHeading}>{`Let's set up your HappySpace`}</Text>
+                        {origin == 'forgot' && (
+                            <OTPTextView
+                                // ref={otpRef}
+                                defaultValue={otp}
+                                containerStyle={styles.otpContainer}
+                                textInputStyle={styles.codeContainer}
+                                tintColor={themeStyleSheet.mainColor}
+                                // handleTextChange={(text) => handleChange(text)}
+                                inputCount={4}
+                                keyboardType="numeric"
+                            />
+                        )}
                         <TextField
                             placeholder="********"
                             placeholderTextColor={themeStyleSheet.lightgray}

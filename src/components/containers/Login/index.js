@@ -8,23 +8,29 @@ import {
     Platform,
     Keyboard,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { EMAIL_PATTERN, isInternetConnected, themeStyleSheet } from '../../../constants';
-import { postLoginRequest } from '../../../SyncServices';
+import { postLoginRequest, requestPassword } from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
 import TextField from '../../common/TextField';
 import styles from './styles';
 import { useToast } from 'native-base';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../redux/actions';
 
 const { width, height } = Dimensions.get('screen');
 
-const Login = ({ navigation, dispatch }) => {
+const Login = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+    const [modal, setModal] = useState(false);
 
     const Toast = useToast();
+
+    const dispatch = useDispatch();
 
     const onChange = (text, type) => {
         setErrors({
@@ -38,15 +44,15 @@ const Login = ({ navigation, dispatch }) => {
         }
     }
 
-    const navigateToForgotPassword = () => {
-
+    const forgotModal = () => {
+        setModal(!modal);
     }
 
     const navigateToRegister = () => {
         navigation.navigate('Signup')
     }
 
-    const validateInput = () => {
+    const validateInput = (onlyEmail = false) => {
         let isValid = true;
         let obj = {};
         if (email) {
@@ -61,6 +67,9 @@ const Login = ({ navigation, dispatch }) => {
             obj = {
                 email: 'Email address is required'
             }
+        }
+        if (onlyEmail == true) {
+            if (isValid == true) return isValid; else return obj.email;
         }
         if (password) {
             if (password.length < 8) {
@@ -95,14 +104,22 @@ const Login = ({ navigation, dispatch }) => {
                 setLoading(true)
 
                 postLoginRequest(params).then(res => {
-                    const { isActive } = res;
-
-                    setLoading(false)
+                    const { isActive, user_workspaces, designation, name } = res;
 
                     if (isActive) {
-                        alert('logged in')
+                        let userDetails = {
+                            name,
+                            email,
+                            designation,
+                        }
 
-                        //Save user details to redux
+                        dispatch(setUser(userDetails)).then(() => {
+                            setLoading(false)
+
+                            navigation.navigate('SelectWorkspace', {
+                                workspaces: user_workspaces
+                            })
+                        })
                     } else {
                         Toast.show({
                             title: 'We have sent a one time password to your email. Please verify',
@@ -125,6 +142,22 @@ const Login = ({ navigation, dispatch }) => {
             }).catch(err => {
                 Toast.show({
                     title: 'Please connect to the internet'
+                })
+            })
+        }
+    }
+
+    const onResetPassword = () => {
+        if (validateInput(true) != true) setErrors({ email2: validateInput(true) })
+        else {
+            const PARAMS = {
+                email,
+            }
+            requestPassword(PARAMS).then(res => {
+                alert('We have sent you a link on your email!')
+            }).catch(err => {
+                Toast.show({
+                    title: 'Something went wrong'
                 })
             })
         }
@@ -160,7 +193,7 @@ const Login = ({ navigation, dispatch }) => {
                         // returnKeyType={'go'}
                         />
                         <Text
-                            onPress={navigateToForgotPassword}
+                            onPress={forgotModal}
                             style={styles.forgotText}
                         >Forgot Password?</Text>
                         <Buttons
@@ -179,6 +212,41 @@ const Login = ({ navigation, dispatch }) => {
                     >Register Now</Text>
                 </View>
             </SafeAreaView>
+            <Modal
+                isVisible={modal}
+                avoidKeyboard={true}
+                style={{
+                    margin: 0,
+                }}
+                onBackdropPress={forgotModal}
+                onBackButtonPress={forgotModal}
+            >
+                <View
+                    style={{
+                        paddingVertical: 40,
+                        backgroundColor: themeStyleSheet.white,
+                        justifyContent: 'center',
+                        width: width,
+                        alignSelf: 'center',
+                        borderRadius: 20,
+                        alignItems: 'center'
+                    }}
+                >
+                    <TextField 
+                        autoFocus={true}
+                        placeholder="Enter Email Address"
+                        placeholderTextColor={themeStyleSheet.lightgray}
+                        label={'Email Address'}
+                        onChange={(text) => onChange(text, 'email')}
+                        error={errors.email2}
+                        textContentType={'emailAddress'}
+                    />
+                    <Buttons 
+                        onPress={onResetPassword}
+                        title="RESET PASSWORD"
+                    />
+                </View>
+            </Modal>
         </>
     )
 }

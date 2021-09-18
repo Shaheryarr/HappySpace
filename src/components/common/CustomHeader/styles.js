@@ -16,6 +16,17 @@ const styles = StyleSheet.create({
     },
     icon: {
         color: themeStyleSheet.mainColor
+    },
+    headingContainer: {
+        height: '100%',
+        width: '50%',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+    },
+    heading: {
+        color: themeStyleSheet.mainColor,
+        fontSize: 18,
+        // fontWeight: '700'
     }
 });
 

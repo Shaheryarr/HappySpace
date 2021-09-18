@@ -29,12 +29,14 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         width: width * 0.8,
         fontSize: 30,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginTop: 15,
     },
     subHeading: {
         textAlign: 'left',
         width: width * 0.8,
         fontSize: 16,
+        marginBottom: 15
     },
     forgotText: {
         textAlign: 'left',

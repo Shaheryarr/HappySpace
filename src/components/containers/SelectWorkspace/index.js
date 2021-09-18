@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setWorkspace } from '../../../redux/actions';
 import Buttons from '../../common/Buttons';
 import styles from './styles';
 
@@ -10,6 +12,8 @@ const SelectWorkspace = ({ route }) => {
     const [workspaces, setWorkspaces] = useState(params.workspaces || []);
     const [selectedWorkspace, setSelectedWorkSpace] = useState(false);
 
+    const dispatch = useDispatch();
+
     const handleContactUs = () => {
         //Contact Us
     }
@@ -19,7 +23,9 @@ const SelectWorkspace = ({ route }) => {
     }
 
     const handleContinue = () => {
-        alert('contuu')
+        dispatch(setWorkspace(selectedWorkspace)).then(() => {
+            alert('done')
+        })
     }
 
     const renderItem = ({ item, index }) => {

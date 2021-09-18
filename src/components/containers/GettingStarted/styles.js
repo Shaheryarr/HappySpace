@@ -3,6 +3,10 @@ import { themeStyleSheet } from "../../../constants";
 const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
+  notchContainer: {
+    flex: 0,
+    backgroundColor: themeStyleSheet.white,
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: themeStyleSheet.mainColor
@@ -14,7 +18,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 35
   },
   bottomContainer: {
-    height: '15%', 
+    height: '15%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center'

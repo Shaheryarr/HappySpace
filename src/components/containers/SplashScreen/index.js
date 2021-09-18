@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Linking, SafeAreaView, Text } from 'react-native';
 
-const SplashScreen = () => {
+const SplashScreen = ({ navigation }) => {
 
     useEffect(() => {
         Linking.getInitialURL().then(res => {
@@ -21,20 +21,31 @@ const SplashScreen = () => {
     }
 
     const formatLink = (link) => {
-        const SUFFIX = link.split('//')[1];
-        const ACTION = SUFFIX.split('/');
-        if (ACTION[0] == 'activate') {
-            const EMAIL = ACTION[1];
-            console.log(EMAIL)
-        } else if (ACTION[0] == '') {
+        if (link) {
+            const SUFFIX = link.split('//')[1];
+            const ACTION = SUFFIX.split('/');
+            if (ACTION[0] == 'activate') {
+                const EMAIL = ACTION[1];
+                console.log(EMAIL)
+                navigate('OnboardEmployee', {
+                    email: EMAIL,
+                })
+            } else if (ACTION[0] == '') {
 
+            }
         }
-        console.log(SUFFIX, ACTION);
+    }
+
+    const navigate = (name, data = {}) => {
+        navigation.navigate(name, data);
     }
 
     return (
         <SafeAreaView>
             <Text>This is a basic SplashScreen</Text>
+            <Text onPress={() => navigate('Login')} >LOGIN</Text>
+            <Text onPress={() => navigate('Signup')} >SIGNUP</Text>
+            <Text onPress={() => navigate('GettingStarted')} >GETTINGSTARTED</Text>
         </SafeAreaView>
     )
 }

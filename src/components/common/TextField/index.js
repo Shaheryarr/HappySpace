@@ -1,8 +1,10 @@
-import React from 'react';
-import {View, Text, TextInput, Dimensions} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Dimensions } from 'react-native';
+import { themeStyleSheet } from '../../../constants';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 const TextField = ({
     placeholder,
@@ -11,22 +13,52 @@ const TextField = ({
     autoFocus,
     placeholderTextColor,
     label,
-    secureTextEntry
+    secureTextEntry,
+    error,
+    textContentType,
+    returnKeyType
 }) => {
+
+    const [visible, setVisible] = useState(!secureTextEntry);
+
     return (
-        <View style={styles.inputContainer}>
-            <Text style={styles.labelStyle}>{label}</Text>
-            <TextInput
-                placeholder={placeholder}
-                value={value}
-                onChange={onChange}
-                autoFocus={autoFocus}
-                placeholderTextColor={placeholderTextColor}
-                style={styles.textStyle}
-                returnKeyType='go'
-                secureTextEntry={secureTextEntry}
-                onChangeText={(text) => onChange(text)}
-            />
+        <View>
+            <View style={{
+                ...styles.inputContainer,
+                borderColor: error ? themeStyleSheet.red : themeStyleSheet.mainColor,
+            }}>
+                <View
+                    style={styles.innerTextInput}
+                >
+                    <View>
+                        <Text style={{
+                            ...styles.labelStyle,
+                            color: error ? themeStyleSheet.red : null
+                        }}>{label}</Text>
+                        <TextInput
+                            placeholder={placeholder}
+                            value={value}
+                            onChange={onChange}
+                            autoFocus={autoFocus}
+                            placeholderTextColor={placeholderTextColor}
+                            style={styles.textStyle}
+                            returnKeyType={returnKeyType}
+                            secureTextEntry={!visible}
+                            onChangeText={(text) => onChange(text)}
+                            textContentType={textContentType}
+                        />
+                    </View>
+                    {textContentType == 'password' && (
+                        <Icon
+                            name={visible ? 'eye' : 'eye-off'}
+                            color={themeStyleSheet.mainColor}
+                            size={21}
+                            onPress={() => setVisible(!visible)}
+                        />
+                    )}
+                </View>
+            </View>
+            <Text style={styles.error}>{error}</Text>
         </View>
     )
 }

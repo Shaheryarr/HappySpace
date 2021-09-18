@@ -24,27 +24,30 @@ const GettingStarted = () => {
     }
 
     return (
-        <SafeAreaView style={styles.mainContainer}>
-            <View style={styles.topContainer}>
-                <View style={styles.carouselContainer}>
-                    <Carousel
-                        data={test}
-                        renderItem={renderItem}
-                        sliderWidth={SLIDER_WIDTH}
-                        itemWidth={ITEM_WIDTH}
-                        inactiveSlideShift={0}
-                    />
+        <>
+            <SafeAreaView style={styles.notchContainer} />
+            <SafeAreaView style={styles.mainContainer}>
+                <View style={styles.topContainer}>
+                    <View style={styles.carouselContainer}>
+                        <Carousel
+                            data={test}
+                            renderItem={renderItem}
+                            sliderWidth={SLIDER_WIDTH}
+                            itemWidth={ITEM_WIDTH}
+                            inactiveSlideShift={0}
+                        />
+                    </View>
+
+                    <View style={styles.buttonContainer}>
+                        <Button title={'Create Your Own Workspace'} />
+                    </View>
                 </View>
 
-                <View style={styles.buttonContainer}>
-                    <Button title={'Create Your Own Workspace'} />
+                <View style={styles.bottomContainer}>
+                    <Text style={styles.subText}>Already Registered? <Text style={styles.mainText}>Login</Text></Text>
                 </View>
-            </View>
-
-            <View style={styles.bottomContainer}>
-                <Text style={styles.subText}>Already Registered? <Text style={styles.mainText}>Login</Text></Text>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </>
     )
 }
 

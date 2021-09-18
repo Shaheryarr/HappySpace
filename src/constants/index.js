@@ -4,4 +4,7 @@ export const themeStyleSheet = {
     white: '#FFFFFF',
     darkGray: '#414143',
     lightgray: 'lightgray',
+    red: '#ff1717',
 }
+
+export const EMAIL_PATTERN = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     SafeAreaView,
     Text,
@@ -7,7 +7,7 @@ import {
     KeyboardAvoidingView,
     Platform,
 } from 'react-native';
-import { themeStyleSheet } from '../../../constants';
+import { EMAIL_PATTERN, themeStyleSheet } from '../../../constants';
 import Buttons from '../../common/Buttons';
 import TextField from '../../common/TextField';
 import styles from './styles';
@@ -18,8 +18,14 @@ const Login = ({ navigation, dispatch }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const onChange = (text, type) => {
+        setErrors({
+            ...errors,
+            [type]: ''
+        })
         if (type == 'email') {
             setEmail(text);
         } else if (type == 'password') {
@@ -32,31 +38,69 @@ const Login = ({ navigation, dispatch }) => {
     }
 
     const navigateToRegister = () => {
+        navigation.navigate('Signup')
+    }
 
+    const validateInput = () => {
+        let isValid = true;
+        let obj = {};
+        if (email) {
+            if (!EMAIL_PATTERN.test(email)) {
+                isValid = false;
+                obj = {
+                    email: 'Email address is not in the correct format'
+                }
+            }
+        } else {
+            isValid = false;
+            obj = {
+                email: 'Email address is required'
+            }
+        }
+        if (password) {
+            if (password.length < 8) {
+                isValid = false;
+                obj = {
+                    ...obj,
+                    password: 'Password must be more than 8 characters'
+                }   
+            }
+        } else {
+            isValid = false;
+            obj = {
+                ...obj,
+                password: 'Password is required'
+            }
+        }
+
+        if (isValid == true) return isValid; else return obj;
     }
 
     const onLogin = () => {
-        alert(email + password)
+        if (validateInput() != true) setErrors(validateInput())
+        else {
+            alert('all good')
+        }
     }
 
     return (
         <>
             <SafeAreaView style={styles.notchContainer} />
-            <SafeAreaView
-                style={styles.container}
-            >
+            <SafeAreaView style={styles.container}>
                 <View style={styles.upperView}>
                     <KeyboardAvoidingView
                         style={styles.inputView}
                         behavior={Platform.OS == 'ios' ? 'padding' : undefined}
                     >
-                        <Text style={styles.heading}>Welcome Back...</Text>
-                        <Text style={styles.subHeading}>Log in to your workspace</Text>
+                        <Text style={styles.heading}>Welcome Back</Text>
+                        <Text style={styles.subHeading}>Log in to your HappySpace</Text>
                         <TextField
                             placeholder="Enter Email Address"
                             placeholderTextColor={themeStyleSheet.lightgray}
                             label={'Email Address'}
                             onChange={(text) => onChange(text, 'email')}
+                            error={errors.email}
+                            textContentType={'emailAddress'}
                         />
                         <TextField
                             placeholder="********"
@@ -64,6 +108,9 @@ const Login = ({ navigation, dispatch }) => {
                             label={'Password'}
                             secureTextEntry={true}
                             onChange={(text) => onChange(text, 'password')}
+                            error={errors.password}
+                            textContentType={'password'}
+                            // returnKeyType={'go'}
                         />
                         <Text
                             onPress={navigateToForgotPassword}

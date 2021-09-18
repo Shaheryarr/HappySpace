@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 35
   },
   bottomContainer: {
-    height: '15%',
+    // height: '15%',
+    flex: 1,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   secondaryContainer: {
     width: '90%',
     alignSelf: 'center',
-    height: height * 0.15,
+    height: height * 0.12,
     justifyContent: 'space-around'
   },
   otpHeading: {

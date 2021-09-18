@@ -17,7 +17,7 @@ const Buttons = ({ title, onPress, type, loading }) => {
         <View style={styles.mainContainer}>
             <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} disabled={loading ? true : false} onPress={onPress}>
                 <View style={styles.containerSecondary}>
-                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={styles.textStylePrimary}>{title.toUpperCase()}</Text>}
+                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={styles.textStyleSecondary}>{title.toUpperCase()}</Text>}
                 </View>
             </TouchableNativeFeedback>
         </View>
@@ -25,7 +25,7 @@ const Buttons = ({ title, onPress, type, loading }) => {
         <View style={styles.mainContainer}>
             <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} disabled={loading ? true : false} onPress={onPress}>
                 <View style={styles.containerSecondary}>
-                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={styles.textStylePrimary}>{title.toUpperCase()}</Text>}
+                    {loading ? <Spinner color={themeStyleSheet.white} /> : <Text style={styles.textStyleSecondary}>{title.toUpperCase()}</Text>}
                 </View>
             </TouchableNativeFeedback>
         </View>

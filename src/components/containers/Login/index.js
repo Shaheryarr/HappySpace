@@ -83,7 +83,7 @@ const Login = ({ navigation, dispatch }) => {
 
     const onLogin = () => {
         Keyboard.dismiss()
-        
+
         if (validateInput() != true) setErrors(validateInput())
         else {
             isInternetConnected().then(() => {
@@ -101,6 +101,8 @@ const Login = ({ navigation, dispatch }) => {
 
                     if (isActive) {
                         alert('logged in')
+
+                        //Save user details to redux
                     } else {
                         Toast.show({
                             title: 'We have sent a one time password to your email. Please verify',

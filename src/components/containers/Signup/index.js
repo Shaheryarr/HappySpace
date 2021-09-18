@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import { useToast } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,15 +8,16 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {EMAIL_PATTERN, themeStyleSheet} from '../../../constants';
+import { EMAIL_PATTERN, isInternetConnected, themeStyleSheet } from '../../../constants';
+import { postSignUpRequest } from '../../../SyncServices';
 import Buttons from '../../common/Buttons';
 import OutlineContainer from '../../common/OutlineContainer';
 import TextField from '../../common/TextField';
 import styles from './styles';
 
-const {width, height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
-const Signup = ({navigation, dispatch}) => {
+const Signup = ({ navigation, dispatch }) => {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -26,14 +28,16 @@ const Signup = ({navigation, dispatch}) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const {name, email, password, c_password, designation} = form;
+  const { name, email, password, c_password, designation } = form;
+
+  const Toast = useToast();
 
   const onChange = (text, type) => {
     setErrors({
       ...errors,
       [type]: '',
     });
-    setForm({...form, [type]: text});
+    setForm({ ...form, [type]: text });
   };
 
   const navigateToLogin = () => {
@@ -102,7 +106,37 @@ const Signup = ({navigation, dispatch}) => {
   const onSignup = () => {
     if (validateInput() != true) setErrors(validateInput());
     else {
-      alert('all good');
+      isInternetConnected().then(() => {
+        let params = {
+          name,
+          email,
+          password,
+          designation,
+        }
+
+        setLoading(true)
+
+        postSignUpRequest(params).then(res => {
+          setLoading(false);
+
+          Toast.show({
+            title: 'We have sent a one time password to your email. Please verify',
+            duration: 5000
+          })
+
+          //Navigate to OTP
+        }).catch(err => {
+          setLoading(false);
+
+          Toast.show({
+            title: err.response.data.message
+          })
+        })
+      }).catch(err => {
+        Toast.show({
+          title: 'Please connect to the internet'
+        })
+      })
     }
   };
 
@@ -111,7 +145,7 @@ const Signup = ({navigation, dispatch}) => {
       <OutlineContainer
         lowerView={
           <>
-            <Text style={{color: themeStyleSheet.white}}>
+            <Text style={{ color: themeStyleSheet.white }}>
               Already have an account?{' '}
             </Text>
             <Text onPress={navigateToLogin} style={styles.loginText}>
@@ -147,7 +181,7 @@ const Signup = ({navigation, dispatch}) => {
             onChange={text => onChange(text, 'password')}
             error={errors.password}
             textContentType={'password'}
-            // returnKeyType={'go'}
+          // returnKeyType={'go'}
           />
           <TextField
             placeholder="********"
@@ -157,7 +191,7 @@ const Signup = ({navigation, dispatch}) => {
             onChange={text => onChange(text, 'c_password')}
             error={errors.c_password}
             textContentType={'password'}
-            // returnKeyType={'go'}
+          // returnKeyType={'go'}
           />
           <TextField
             placeholder="Enter Designation"
@@ -167,7 +201,7 @@ const Signup = ({navigation, dispatch}) => {
             error={errors.designation}
             textContentType={'none'}
           />
-          <Buttons type="primary" title={'SIGN UP'} onPress={onSignup} />
+          <Buttons type="primary" title={'SIGN UP'} onPress={onSignup} loading={loading} />
         </KeyboardAvoidingView>
       </OutlineContainer>
     </>

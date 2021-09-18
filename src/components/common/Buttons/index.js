@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
 import styles from './styles';
 
-const Buttons = ({ title, onPress, type }) => {
+const Buttons = ({ title, onPress, type, style }) => {
     return type == 'primary' ? (
         <View style={styles.mainContainer}>
             <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('rgba(255,255,255,.3)', false)} onPress={onPress}>

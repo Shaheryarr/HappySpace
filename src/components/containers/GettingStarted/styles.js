@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     height: '15%',
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   subText: {
     color: themeStyleSheet.white,

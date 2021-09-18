@@ -18,11 +18,11 @@ const GettingStarted = ({ navigation }) => {
     const [data, setData] = useState([...test])
 
     const handleSignUp = () => {
-        //
+        navigation.navigate('Signup')
     }
 
     const handleLogin = () => {
-        //
+        navigation.navigate('Login')
     }
 
     const renderItem = ({ item, index }) => {

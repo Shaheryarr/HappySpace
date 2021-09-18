@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 const SplashScreen = ({ navigation }) => {
 
     const user = useSelector(state => state.user);
+    const workspace = useSelector(state => state.workspace);
 
     useEffect(() => {
         Linking.getInitialURL().then(res => {
@@ -12,6 +13,7 @@ const SplashScreen = ({ navigation }) => {
         })
 
         console.log('User: ', user)
+        console.log('Workspace: ', workspace)
 
         const subscribe = Linking.addEventListener('url', handleLink);
 

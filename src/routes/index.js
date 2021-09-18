@@ -15,25 +15,61 @@ import SelectWorkspace from '../components/containers/SelectWorkspace';
 import NewsFeed from '../components/containers/NewsFeed';
 import Profile from '../components/containers/Profile';
 import Menu from '../components/containers/Menu';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { themeStyleSheet } from '../constants';
+import { Dimensions, Platform } from 'react-native';
+
+const { height, width } = Dimensions.get("window");
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const screenOptions = (route, color) => {
+    let iconName;
+
+    switch (route.name) {
+        case 'NewsFeed':
+            iconName = 'newspaper-variant-outline'
+            break;
+
+        case 'Menu':
+            iconName = 'apps'
+            break;
+
+        case 'Profile':
+            iconName = 'face-profile'
+            break;
+
+        default:
+            break;
+    }
+
+    return <Icon name={iconName} color={color} size={30} />
+}
+
+const Tabs = () => {
+    return (
+        <Tab.Navigator
+            initialRouteName={'NewsFeed'}
+            screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarIcon: ({ color }) => screenOptions(route, color),
+                tabBarActiveTintColor: themeStyleSheet.mainColor,
+                tabBarShowLabel: false,
+                tabBarStyle: { height: height * 0.08 }
+            })}>
+            <Tab.Screen name="NewsFeed" component={NewsFeed} />
+            <Tab.Screen name="Menu" component={Menu} />
+            <Tab.Screen name="Profile" component={Profile} />
+        </Tab.Navigator>
+    )
+}
 
 const appRoutes = () => {
     return (
         <Stack.Navigator initialRouteName={'SplashScreen'} screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Tabs" component={Tabs} />
         </Stack.Navigator>
-    )
-}
-
-const Tabs = () => {
-    return (
-        <Tab.Navigator initialRouteName={'NewsFeed'} screenOptions={{headerShown: false}}>
-            <Tab.Screen name="NewsFeed" component={NewsFeed} />
-            <Tab.Screen name="Menu" component={Menu} />
-            <Tab.Screen name="Profile" component={Profile} />
-        </Tab.Navigator>
     )
 }
 

@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     mainContainer: {
         borderRadius: 35,
         overflow: 'hidden',
-
     },
     containerSecondary: {
         height: height * 0.07,

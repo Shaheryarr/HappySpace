@@ -69,6 +69,7 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
               .then(res => {
                 dispatch(setUser({...user, image_url})).then(() => {
                   Toast.show({title: 'Image uploaded successfully'});
+                  setImage(undefined);
                 });
               })
               .catch(() =>
@@ -158,7 +159,7 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
                   height: 100,
                   width: 100,
                   backgroundColor: 'grey',
-                  borderRadius: 5,
+                  borderRadius: 15,
                 }}
                 imageStyle={{borderRadius: 15}}>
                 <View
@@ -167,14 +168,24 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
+                  {!user?.image_url && (
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontSize: 60,
+                        fontWeight: 'bold',
+                      }}>
+                      {user?.name?.substring(0, 1).toUpperCase()}
+                    </Text>
+                  )}
                   <Icon
                     name="camera"
                     size={30}
                     color="#fff"
                     style={{
                       position: 'absolute',
-                      bottom: 0,
-                      right: 2,
+                      bottom: 3,
+                      right: 4,
                       alignItems: 'center',
                       justifyContent: 'center',
                       //   borderWidth: 1,

@@ -13,7 +13,25 @@ import {
 	RESET_PASSWORD_API,
 	SIGNUP_API,
 	UPLOAD_IMAGE_API,
+  	GET_QUIZ_PLAYERS,
 } from './apis';
+
+export const getUserQuizDetails = (workspace_id) => {
+    return new Promise((resolve, reject) => {
+        axios.get(GET_QUIZ_PLAYERS, {
+            params: {
+                workspace_id
+            },
+            withCredentials: true
+        }).then(res => {
+            console.log('getUserQuizDetails res: ', res.data);
+            resolve(res.data);
+        }).catch(err => {
+            console.log('getUserQuizDetails err: ', err.response.data);
+            reject(err);
+        })
+    })
+}
 
 export const getUserAuthentication = () => {
 	return new Promise((resolve, reject) => {

@@ -111,13 +111,17 @@ const Login = ({navigation}) => {
 
           postLoginRequest(params)
             .then(res => {
-              const {isActive, user_workspaces, designation, name} = res;
+              console.log({res});
+              const {isActive, user_workspaces, designation, name, image_url} =
+                res;
 
               if (isActive) {
                 let userDetails = {
                   name,
                   email,
                   designation,
+                  workspaces: user_workspaces,
+                  image_url,
                 };
 
                 dispatch(setUser(userDetails)).then(() => {

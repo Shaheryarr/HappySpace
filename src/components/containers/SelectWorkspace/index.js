@@ -102,7 +102,7 @@ const SelectWorkspace = ({ route, navigation }) => {
               type="primary"
               title={'Continue'}
               onPress={handleContinue}
-              disabled={selectedWorkspace ? false : true}
+              disabled={!selectedWorkspace}
             />
           </View>
         </View>

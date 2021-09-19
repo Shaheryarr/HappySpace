@@ -23,6 +23,7 @@ import QuizDashboard from '../components/containers/QuizDashboard';
 import QuizChooseUser from '../components/containers/QuizChooseUser';
 import QuizMain from '../components/containers/QuizMain';
 import PostDetail from '../components/containers/PostDetail';
+import QuizSetQuestions from '../components/containers/QuizSetQuestions';
 
 const {height, width} = Dimensions.get('window');
 
@@ -81,6 +82,7 @@ const appRoutes = () => {
       <Stack.Screen name="QuizChooseUser" component={QuizChooseUser} />
       <Stack.Screen name="QuizMain" component={QuizMain} />
       <Stack.Screen name="PostDetail" component={PostDetail} />
+      <Stack.Screen name="QuizSetQuestions" component={QuizSetQuestions} />
     </Stack.Navigator>
   );
 };

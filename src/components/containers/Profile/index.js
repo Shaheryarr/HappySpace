@@ -1,4 +1,4 @@
-import React, {createRef, useRef, useState} from 'react';
+import React, {createRef, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -12,40 +12,78 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-
-// import ImagePicker from 'react-native-image-crop-picker';
+import {useToast} from 'native-base';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import styles from './styles';
 import Buttons from '../../common/Buttons';
 import {connect} from 'react-redux';
-import {handleLogout} from '../../../constants';
+import {handleLogout, isInternetConnected} from '../../../constants';
+import {postImageBase64, updateUser} from '../../../SyncServices';
+import {setUser} from '../../../redux/actions';
+
+const config = {
+  mediaType: 'photo',
+  includeBase64: true,
+  quality: 0.1,
+};
 
 const Profile = ({user, workspace, navigation, dispatch}) => {
-  //Functions Here
-
+  const Toast = useToast();
+  const [image, setImage] = useState(undefined);
   const takePhotoFromCamera = () => {
-    // ImagePicker.openCamera({
-    //   compressImageMaxWidth: 300,
-    //   compressImageMaxHeight: 300,
-    //   cropping: true,
-    //   compressImageQuality: 0.7
-    // }).then(image => {
-    //   console.log(image);
-    //   setImage(image.path);
-    //   this.bs.current.snapTo(1);
-    // });
+    launchCamera(config, res => {
+      const {assets} = res;
+
+      if (assets?.length) {
+        setImage(assets[0]);
+      }
+    });
   };
 
   const choosePhotoFromLibrary = () => {
-    // ImagePicker.openPicker({
-    //   width: 300,
-    //   height: 300,
-    //   cropping: true,
-    //   compressImageQuality: 0.7
-    // }).then(image => {
-    //   console.log(image);
-    //   setImage(image.path);
-    //   this.bs.current.snapTo(1);
-    // });
+    launchImageLibrary(config, res => {
+      const {assets} = res;
+
+      if (assets?.length) {
+        setImage(assets[0]);
+        console.log(assets[0]);
+      }
+    });
+  };
+
+  useEffect(() => {
+    handleSave();
+    return () => {};
+  }, [image]);
+
+  const handleSave = () => {
+    if (image) {
+      let params = {
+        image_name: image.base64,
+      };
+      isInternetConnected()
+        .then(() => {
+          postImageBase64(params).then(res => {
+            const {message: {image_url = ''} = {image_url: ''}} = res;
+            updateUser({image_url})
+              .then(res => {
+                dispatch(setUser({...user, image_url})).then(() => {
+                  Toast.show({title: 'Image uploaded successfully'});
+                });
+              })
+              .catch(() =>
+                Toast.show({
+                  title: 'Error while uploading image',
+                }),
+              );
+          });
+        })
+        .catch(err =>
+          Toast.show({
+            title: 'Please connect to the internet',
+          }),
+        );
+    }
   };
 
   const renderInner = () => (
@@ -131,14 +169,16 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
                   }}>
                   <Icon
                     name="camera"
-                    size={35}
+                    size={30}
                     color="#fff"
                     style={{
-                      opacity: 0.7,
+                      position: 'absolute',
+                      bottom: 0,
+                      right: 2,
                       alignItems: 'center',
                       justifyContent: 'center',
-                      borderWidth: 1,
-                      borderColor: '#fff',
+                      //   borderWidth: 1,
+                      //   borderColor: '#fff',
                       borderRadius: 10,
                     }}
                   />

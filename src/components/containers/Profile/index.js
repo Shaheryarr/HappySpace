@@ -4,12 +4,11 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  TextInput,
+  Pressable,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
@@ -18,8 +17,9 @@ import Animated from 'react-native-reanimated';
 import styles from './styles';
 import Buttons from '../../common/Buttons';
 import {connect} from 'react-redux';
+import {handleLogout} from '../../../constants';
 
-const Profile = ({user, navigation}) => {
+const Profile = ({user, workspace, navigation, dispatch}) => {
   //Functions Here
 
   const takePhotoFromCamera = () => {
@@ -163,12 +163,37 @@ const Profile = ({user, navigation}) => {
             {user?.email}
           </Text>
         </View>
+        <Pressable
+          onPress={() =>
+            navigation.navigate('AddMembers', {
+              workspace: {
+                id: workspace.workspace_id,
+                name: workspace.workspace_name,
+              },
+            })
+          }
+          style={styles.action}>
+          <FontAwesome name="user-o" color={'black'} size={20} />
+          <Text
+            style={[
+              styles.textInput,
+              {
+                color: 'black',
+              },
+            ]}>
+            Invite Members
+          </Text>
+          <Icon name="chevron-right" size={30} />
+        </Pressable>
         <View style={{position: 'absolute', bottom: 5, alignSelf: 'center'}}>
-          <Buttons title="LOGOUT" />
+          <Buttons
+            onPress={() => handleLogout(dispatch, navigation)}
+            title="LOGOUT"
+          />
         </View>
       </Animated.View>
     </View>
   );
 };
-const mapStateToProps = ({user}) => ({user});
+const mapStateToProps = ({user, workspace}) => ({user, workspace});
 export default connect(mapStateToProps)(Profile);

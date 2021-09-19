@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   Text,
@@ -6,15 +6,15 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
-import {setWorkspaceData} from '../../../redux/actions';
+import { useDispatch } from 'react-redux';
+import { setWorkspaceData } from '../../../redux/actions';
 import Buttons from '../../common/Buttons';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {themeStyleSheet} from '../../../constants';
+import { themeStyleSheet } from '../../../constants';
 
-const SelectWorkspace = ({route, navigation}) => {
-  const {params} = route;
+const SelectWorkspace = ({ route, navigation }) => {
+  const { params } = route;
 
   const [workspaces, setWorkspaces] = useState(params.workspaces || []);
   const [selectedWorkspace, setSelectedWorkSpace] = useState(false);
@@ -31,11 +31,14 @@ const SelectWorkspace = ({route, navigation}) => {
 
   const handleContinue = () => {
     dispatch(setWorkspaceData(selectedWorkspace)).then(() => {
-      alert('done');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'appRoutes' }],
+      });
     });
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     const exists = item.workspace_id == selectedWorkspace.workspace_id;
     return (
       <TouchableOpacity

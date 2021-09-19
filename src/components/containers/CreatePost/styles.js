@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderColor: themeStyleSheet.lightgray,
     flexDirection: 'row',
-    minHeight: height * 0.15
+    minHeight: height * 0.15,
     // alignItems: 'center'
   },
   postFirstRow: {

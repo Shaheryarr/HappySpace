@@ -14,8 +14,46 @@ import {
   SIGNUP_API,
   UPLOAD_IMAGE_API,
   GET_QUIZ_PLAYERS,
+  GET_QUIZ_QUESTIONS,
   UPDATE_USER,
 } from './apis';
+
+export const getQuizQuestions = email => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GET_QUIZ_QUESTIONS, {
+        params: {
+          email,
+        },
+        withCredentials: true,
+      })
+      .then(res => {
+        console.log('getQuizQuestions res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('getQuizQuestions err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
+
+export const postQuizQuestions = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(GET_QUIZ_QUESTIONS, params, {
+        withCredentials: true,
+      })
+      .then(res => {
+        console.log('postQuizQuestions res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('postQuizQuestions err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
 
 export const getUserQuizDetails = workspace_id => {
   return new Promise((resolve, reject) => {

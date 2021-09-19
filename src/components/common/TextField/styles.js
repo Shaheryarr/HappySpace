@@ -5,7 +5,6 @@ const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
 	inputContainer: {
 		height: 60,
-		width: width * 0.85,
 		borderWidth: 1,
 		justifyContent: 'center',
 		borderRadius: 5,

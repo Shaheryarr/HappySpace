@@ -38,9 +38,12 @@ const SplashScreen = ({ navigation }) => {
         if (user) {
             isInternetConnected().then(() => {
                 getUserAuthentication().then(res => {
-                    //
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'appRoutes' }],
+                    });
                 }).catch(err => {
-                    console.log(err)
+                    handleLogout()
                 })
             }).catch(err => {
                 Toast.show({

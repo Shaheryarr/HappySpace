@@ -19,6 +19,7 @@ import NewsFeed from '../components/containers/NewsFeed';
 import Profile from '../components/containers/Profile';
 import Menu from '../components/containers/Menu';
 import CreatePost from '../components/containers/CreatePost';
+import QuizDashboard from '../components/containers/QuizDashboard';
 
 const { height, width } = Dimensions.get("window");
 
@@ -71,6 +72,7 @@ const appRoutes = () => {
         <Stack.Navigator initialRouteName={'SplashScreen'} screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Tabs" component={Tabs} />
             <Stack.Screen name="CreatePost" component={CreatePost} />
+            <Stack.Screen name="QuizDashboard" component={QuizDashboard} />
         </Stack.Navigator>
     )
 }

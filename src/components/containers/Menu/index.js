@@ -7,7 +7,7 @@ const Menu = ({ navigation }) => {
     const activities = [{
         name: 'How much do you know them?',
         image: null,
-        screen: 'Quiz'
+        screen: 'QuizDashboard'
     }]
 
     const handleNavigation = (item) => {

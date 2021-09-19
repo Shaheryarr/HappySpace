@@ -16,7 +16,23 @@ import {
   GET_QUIZ_PLAYERS,
   GET_QUIZ_QUESTIONS,
   UPDATE_USER,
+  GET_QUIZ_LEADERBOARD,
 } from './apis';
+
+export const getQuizLeaderBoard = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GET_QUIZ_LEADERBOARD, {withCredentials: true})
+      .then(res => {
+        console.log('getQuizLeaderboard res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('getQuizLeaderboard err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
 
 export const getQuizQuestions = email => {
   return new Promise((resolve, reject) => {

@@ -22,6 +22,7 @@ import CreatePost from '../components/containers/CreatePost';
 import QuizDashboard from '../components/containers/QuizDashboard';
 import QuizChooseUser from '../components/containers/QuizChooseUser';
 import PostDetail from '../components/containers/PostDetail';
+import LeaderBoard from '../components/containers/LeaderBoard';
 
 const {height, width} = Dimensions.get('window');
 
@@ -98,6 +99,7 @@ const rootRoutes = () => {
         <Stack.Screen name="OnboardEmployee" component={OnboardEmployee} />
         <Stack.Screen name="OtpVerification" component={OtpVerification} />
         <Stack.Screen name="SelectWorkspace" component={SelectWorkspace} />
+        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="appRoutes" component={appRoutes} />
       </Stack.Navigator>
     </NavigationContainer>

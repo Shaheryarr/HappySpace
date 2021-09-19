@@ -16,7 +16,7 @@ const CustomHeader = ({ firstIcon, onPressFirstIcon, title, secondIcon, save, th
                 <Text style={styles.heading}>{title}</Text>
             </View>
 
-            <TouchableOpacity style={styles.secondIconContainer}>
+            <TouchableOpacity style={{...styles.secondIconContainer, width: '10%'}}>
                 <Icon name={secondIcon} style={styles.icon} size={40} />
             </TouchableOpacity>
 

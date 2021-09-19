@@ -30,14 +30,14 @@ const styles = StyleSheet.create({
     },
     secondIconContainer: {
         height: '100%',
-        width: '20%',
+        width: '30%',
         justifyContent: 'center',
         alignItems: 'center'
     },
     saveContainer: {
         backgroundColor: themeStyleSheet.mainColor,
         height: '50%',
-        width: '90%',
+        width: '75%',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         color: themeStyleSheet.white
     },
     leaderboard: {
-        fontSize: 12,
+        // fontSize: 12,
         color: themeStyleSheet.mainColor,
         textDecorationLine: 'underline'
     }

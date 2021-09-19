@@ -24,7 +24,7 @@ const OnboardEmployee = ({ navigation, route }) => {
 
     const user = useSelector(state => state.user);
 
-    const { email, user_workspaces, origin = 'onboard', otp = '' } = route.params;
+    const { email = '', user_workspaces, origin = 'onboard', otp = '' } = route.params;
 
     const Toast = useToast();
 

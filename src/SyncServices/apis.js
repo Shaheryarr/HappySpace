@@ -12,3 +12,4 @@ export const ADD_MEMBERS = BASE_URL + 'register/add/members/';
 export const UPLOAD_IMAGE_API = BASE_URL + 'core/image_upload/';
 export const MANAGE_POSTS = BASE_URL + 'post/';
 export const CHECK_AUTH_API = BASE_URL + 'register/check/auth/';
+export const GET_POSTS = BASE_URL + 'view/posts/';

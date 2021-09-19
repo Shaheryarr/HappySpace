@@ -63,11 +63,15 @@ const AddWorkspace = ({navigation}) => {
             .then(res => {
               const {status, workspace_id: id, workspace_name: name} = res;
               console.log({id, name});
+              const data = {
+                workspace_id: id,
+                workspace_name: name,
+              }
               if (status)
-                dispatch(setWorkspaceData({id, name})).then(() => {
+                dispatch(setWorkspaceData(data)).then(() => {
                   setLoading(false);
                   navigation.navigate('AddMembers', {
-                    workspace: {id, name},
+                    workspace: data,
                   });
                 });
             })

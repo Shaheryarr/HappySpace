@@ -18,7 +18,8 @@ const CreatePost = ({ navigation }) => {
 
     const config = {
         mediaType: 'photo',
-        includeBase64: true
+        includeBase64: true,
+        quality: 0.1
     }
 
     const handleBackAction = () => {
@@ -70,7 +71,7 @@ const CreatePost = ({ navigation }) => {
         }
     }
 
-    const handleCreatePost = (url = false) => {
+    const handleCreatePost = (url = '') => {
         let params2 = {
             workspace_id: workspace.workspace_id,
             content: text,
@@ -79,7 +80,13 @@ const CreatePost = ({ navigation }) => {
 
         createPost(params2).then(res => {
             setLoading(false)
-            navigation.goBack()
+            navigation.reset({
+                routes: [
+                    {
+                        name: 'appRoutes',
+                    }
+                ]
+            });
         })
     }
 

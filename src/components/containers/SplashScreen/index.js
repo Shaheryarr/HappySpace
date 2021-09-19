@@ -20,12 +20,14 @@ const SplashScreen = ({ navigation }) => {
     useEffect(() => {
         Linking.getInitialURL().then(res => {
             formatLink(res);
+        }).catch(err => {
+
         })
 
         console.log('User: ', user)
         console.log('Workspace: ', workspace)
 
-        handleAuthentication()
+        // handleAuthentication()
 
         const subscribe = Linking.addEventListener('url', handleLink);
 
@@ -64,6 +66,7 @@ const SplashScreen = ({ navigation }) => {
     }
 
     const formatLink = (link) => {
+        console.log('LINK', link);
         // HappySpace://activate/mhasank999@gmail.com/<password>/
         if (link) {
             const SUFFIX = link.split('//')[1];
@@ -93,10 +96,13 @@ const SplashScreen = ({ navigation }) => {
                     ]
                 });
             }
+        } else {
+            handleAuthentication()
         }
     }
 
     const loginUser = (PARAMS) => {
+        console.log(PARAMS);
         postLoginRequest(PARAMS).then(res => {
             const { isActive, user_workspaces, designation, name } = res;
 
@@ -106,7 +112,7 @@ const SplashScreen = ({ navigation }) => {
                     email: PARAMS.email,
                     designation,
                 }
-
+                console.log('USER', userDetails);
                 dispatch(setUser(userDetails)).then(() => {
                     setLoading(false)
                     navigation.reset({

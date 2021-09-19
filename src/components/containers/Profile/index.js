@@ -102,7 +102,7 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
           flex: 1,
           opacity: Animated.add(0.1, Animated.multiply(fall.current, 1.0)),
         }}>
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', paddingVertical: 20}}>
           <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
             <View
               style={{
@@ -146,7 +146,7 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
               </ImageBackground>
             </View>
           </TouchableOpacity>
-          <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
+          <Text style={{marginTop: 20, fontSize: 18, fontWeight: 'bold'}}>
             {user?.name}
           </Text>
         </View>
@@ -167,8 +167,8 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
           onPress={() =>
             navigation.navigate('AddMembers', {
               workspace: {
-                id: workspace.workspace_id,
-                name: workspace.workspace_name,
+                workspace_id: workspace.workspace_id,
+                workspace_name: workspace.workspace_name,
               },
             })
           }
@@ -182,6 +182,25 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
               },
             ]}>
             Invite Members
+          </Text>
+          <Icon name="chevron-right" size={30} />
+        </Pressable>
+        <Pressable
+          onPress={() =>
+            navigation.navigate('SelectWorkspace', {
+              workspaces: user.workspaces,
+            })
+          }
+          style={styles.action}>
+          <Icon name="network-outline" color={'black'} size={20} />
+          <Text
+            style={[
+              styles.textInput,
+              {
+                color: 'black',
+              },
+            ]}>
+            Switch Workspace
           </Text>
           <Icon name="chevron-right" size={30} />
         </Pressable>

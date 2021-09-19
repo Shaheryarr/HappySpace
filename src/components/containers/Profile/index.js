@@ -167,8 +167,8 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
           onPress={() =>
             navigation.navigate('AddMembers', {
               workspace: {
-                id: workspace.workspace_id,
-                name: workspace.workspace_name,
+                workspace_id: workspace.workspace_id,
+                workspace_name: workspace.workspace_name,
               },
             })
           }

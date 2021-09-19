@@ -40,10 +40,15 @@ const styles = StyleSheet.create({
         width: '90%',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 15
+        borderRadius: 5
     },
     saveText: {
         color: themeStyleSheet.white
+    },
+    leaderboard: {
+        fontSize: 12,
+        color: themeStyleSheet.mainColor,
+        textDecorationLine: 'underline'
     }
 });
 

@@ -85,11 +85,14 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: 16
 	},
+	created_at: {
+		marginLeft: 10,
+		fontSize: 12
+	},
 	editDetails: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		width: '17%',
 	},
 	contentContainer: {
 		marginTop: 10,

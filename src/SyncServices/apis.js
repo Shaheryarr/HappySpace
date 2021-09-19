@@ -15,3 +15,6 @@ export const CHECK_AUTH_API = BASE_URL + 'register/check/auth/';
 export const GET_POSTS = BASE_URL + 'view/posts/';
 export const GET_QUIZ_PLAYERS = BASE_URL + 'games/users/quiz/';
 export const GET_QUIZ_QUESTIONS = BASE_URL + 'games/answer/quiz/';
+export const MANAGE_COMMENT = BASE_URL + 'comment/';
+export const GET_POST = BASE_URL + 'get/post/';
+export const MANAGE_LIKE = BASE_URL + 'like/post/';

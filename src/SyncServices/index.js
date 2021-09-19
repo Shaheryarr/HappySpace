@@ -17,6 +17,9 @@ import {
     GET_QUIZ_QUESTIONS,
     UPDATE_USER,
     SET_QUIZ_QUESTIONS,
+	GET_POST,
+	MANAGE_COMMENT,
+	MANAGE_LIKE,
 } from './apis';
 
 export const postSetQuestions = params => {

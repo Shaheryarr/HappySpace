@@ -1,4 +1,4 @@
-import {FlatList} from 'native-base';
+import {FlatList, useToast} from 'native-base';
 import React, {useCallback, useState} from 'react';
 import {Text, View, KeyboardAvoidingView} from 'react-native';
 import {
@@ -18,6 +18,8 @@ const AddMembers = ({navigation, route, dispatch}) => {
   const [members, setMembers] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const Toast = useToast();
 
   const {
     params: {workspace},
@@ -65,7 +67,7 @@ const AddMembers = ({navigation, route, dispatch}) => {
         setLoading(true);
 
         let PARAMS = {
-          workspace_id: workspace.id,
+          workspace_id: workspace.workspace_id,
           emails: members,
         };
         console.log('PARAMS', PARAMS);
@@ -110,7 +112,7 @@ const AddMembers = ({navigation, route, dispatch}) => {
         <KeyboardAvoidingView style={styles.inputView} behavior={'padding'}>
           <Text style={styles.heading}>Welcome To HappySpace</Text>
           <Text style={styles.subHeading}>
-            Invite members to {workspace?.name}
+            Invite members to {workspace?.workspace_name}
           </Text>
           <View style={{alignItems: 'center'}}>
             <TextField

@@ -31,7 +31,7 @@ const SelectWorkspace = ({route, navigation}) => {
 
   const handleContinue = () => {
     dispatch(setWorkspaceData(selectedWorkspace)).then(() => {
-      alert('done');
+      navigation.navigate('appRoutes');
     });
   };
 
@@ -99,7 +99,7 @@ const SelectWorkspace = ({route, navigation}) => {
               type="primary"
               title={'Continue'}
               onPress={handleContinue}
-              disabled={selectedWorkspace ? false : true}
+              disabled={!selectedWorkspace}
             />
           </View>
         </View>

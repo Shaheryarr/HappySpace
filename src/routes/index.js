@@ -21,6 +21,7 @@ import Menu from '../components/containers/Menu';
 import CreatePost from '../components/containers/CreatePost';
 import QuizDashboard from '../components/containers/QuizDashboard';
 import QuizChooseUser from '../components/containers/QuizChooseUser';
+import QuizMain from '../components/containers/QuizMain';
 import PostDetail from '../components/containers/PostDetail';
 
 const {height, width} = Dimensions.get('window');
@@ -70,16 +71,19 @@ const Tabs = () => {
 };
 
 const appRoutes = () => {
-    return (
-        <Stack.Navigator initialRouteName={'SplashScreen'} screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Tabs" component={Tabs} />
-            <Stack.Screen name="CreatePost" component={CreatePost} />
-            <Stack.Screen name="QuizDashboard" component={QuizDashboard} />
-            <Stack.Screen name="QuizChooseUser" component={QuizChooseUser} />
-            <Stack.Screen name="PostDetail" component={PostDetail} />
-        </Stack.Navigator>
-    )
-}
+  return (
+    <Stack.Navigator
+      initialRouteName={'SplashScreen'}
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen name="CreatePost" component={CreatePost} />
+      <Stack.Screen name="QuizDashboard" component={QuizDashboard} />
+      <Stack.Screen name="QuizChooseUser" component={QuizChooseUser} />
+      <Stack.Screen name="QuizMain" component={QuizMain} />
+      <Stack.Screen name="PostDetail" component={PostDetail} />
+    </Stack.Navigator>
+  );
+};
 
 const rootRoutes = () => {
   return (

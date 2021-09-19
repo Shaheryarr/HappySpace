@@ -27,6 +27,11 @@ const QuizChooseUser = ({ navigation, route }) => {
             getQuizQuestions(selectedPlayer.email).then(res => {
                 const { questionare } = res;
 
+                navigation.navigate('QuizMain', {
+                    questionare,
+                    player: selectedPlayer
+                })
+
                 setLoading(false)
             }).catch(err => {
                 setLoading(false)

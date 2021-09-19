@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     height: '40%',
-    backgroundColor: 'pink',
+    backgroundColor: themeStyleSheet.white,
     justifyContent: 'center',
     alignItems: 'center'
   },

@@ -18,6 +18,7 @@ import {
 	MANAGE_COMMENT,
 	GET_POST,
 	MANAGE_LIKE,
+	UPDATE_USER
 } from './apis';
 
 export const getQuizQuestions = (email) => {
@@ -361,6 +362,23 @@ export const unlikePost = PARAMS => {
 			})
 			.catch(err => {
 				console.log('likePostById err: ', err.response.data);
+				reject(err);
+			});
+	});
+};
+
+export const updateUser = PARAMS => {
+	return new Promise((resolve, reject) => {
+		axios
+			.post(UPDATE_USER, PARAMS, {
+				withCredentials: true,
+			})
+			.then(res => {
+				console.log('updateUser res: ', res.data);
+				resolve(res.data);
+			})
+			.catch(err => {
+				console.log('updateUser err: ', err.response.data);
 				reject(err);
 			});
 	});

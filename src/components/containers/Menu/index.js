@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, SafeAreaView, Text, TouchableOpacity, View, Image } from 'react-native';
 import styles from './styles';
 
 const Menu = ({ navigation }) => {
@@ -17,7 +17,7 @@ const Menu = ({ navigation }) => {
     const renderItem = ({ item, index }) => {
         return (
             <TouchableOpacity style={styles.flatListItem} onPress={() => handleNavigation(item)}>
-                <Text style={styles.itemName}>{item.name}</Text>
+                <Image source={require('../../../assets/images/image1.png')} resizeMode='contain' style={{height: 150, width: 150}} />
             </TouchableOpacity>
         )
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -12,7 +12,7 @@ import GettingStarted from '../components/containers/GettingStarted';
 import OnboardEmployee from '../components/containers/OnboardEmployee';
 import AddWorkspace from '../components/containers/AddWorkspace';
 import AddMembers from '../components/containers/AddMembers';
-import Signup from '../components/containers/Signup';
+import Signup from '../components/containers/SignUp';
 import OtpVerification from '../components/containers/OtpVerification';
 import SelectWorkspace from '../components/containers/SelectWorkspace';
 import NewsFeed from '../components/containers/NewsFeed';
@@ -21,8 +21,13 @@ import Menu from '../components/containers/Menu';
 import CreatePost from '../components/containers/CreatePost';
 import QuizDashboard from '../components/containers/QuizDashboard';
 import QuizChooseUser from '../components/containers/QuizChooseUser';
+import QuizMain from '../components/containers/QuizMain';
 import PostDetail from '../components/containers/PostDetail';
+<<<<<<< HEAD
 import LeaderBoard from '../components/containers/LeaderBoard';
+=======
+import QuizSetQuestions from '../components/containers/QuizSetQuestions';
+>>>>>>> bd4b411c2f2df6cde3f35738ba047de0ccbccb77
 
 const {height, width} = Dimensions.get('window');
 
@@ -61,7 +66,7 @@ const Tabs = () => {
         tabBarIcon: ({color}) => screenOptions(route, color),
         tabBarActiveTintColor: themeStyleSheet.mainColor,
         tabBarShowLabel: false,
-        tabBarStyle: {height: height * 0.08},
+        tabBarStyle: Platform.OS == 'ios' ? { height: height * 0.1 } : { height: height * 0.08},
       })}>
       <Tab.Screen name="NewsFeed" component={NewsFeed} />
       <Tab.Screen name="Menu" component={Menu} />
@@ -79,7 +84,9 @@ const appRoutes = () => {
       <Stack.Screen name="CreatePost" component={CreatePost} />
       <Stack.Screen name="QuizDashboard" component={QuizDashboard} />
       <Stack.Screen name="QuizChooseUser" component={QuizChooseUser} />
+      <Stack.Screen name="QuizMain" component={QuizMain} />
       <Stack.Screen name="PostDetail" component={PostDetail} />
+      <Stack.Screen name="QuizSetQuestions" component={QuizSetQuestions} />
     </Stack.Navigator>
   );
 };

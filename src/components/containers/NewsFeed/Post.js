@@ -11,6 +11,7 @@ import { themeStyleSheet } from '../../../constants';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import { deletePostById } from '../../../SyncServices';
+import moment from 'moment';
 
 const { width } = Dimensions.get('screen')
 
@@ -56,17 +57,15 @@ const Post = ({
                     <View style={styles.authorRow}>
                         <View style={styles.author}>
                             <TouchableOpacity style={styles.profileContainer}>
-                                <Text style={styles.profileText}>{item.created_by.substring(0, 1).toUpperCase()}</Text>
+                                <Text style={styles.profileText}>{item.created_by?.substring(0, 1).toUpperCase()}</Text>
                             </TouchableOpacity>
-                            <Text style={styles.authorName}>{item.created_by}</Text>
+                            <View>
+                                <Text style={styles.authorName}>{item.created_by}</Text>
+                                <Text style={styles.created_at}>{moment(item.created_at).format('DD-MMM-YYYY hh:mm A')}</Text>
+                            </View>
                         </View>
                         {item.email == user?.email && (
                             <View style={styles.editDetails}>
-                                <Icon 
-                                    onPress={editPost}
-                                    name='pencil'
-                                    size={25}
-                                />
                                 <Icon 
                                     onPress={deletePost}
                                     name='trash'

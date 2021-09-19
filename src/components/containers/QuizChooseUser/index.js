@@ -27,6 +27,11 @@ const QuizChooseUser = ({ navigation, route }) => {
             getQuizQuestions(selectedPlayer.email).then(res => {
                 const { questionare } = res;
 
+                navigation.navigate('QuizMain', {
+                    questionare,
+                    player: selectedPlayer
+                })
+
                 setLoading(false)
             }).catch(err => {
                 setLoading(false)
@@ -52,7 +57,7 @@ const QuizChooseUser = ({ navigation, route }) => {
                             <Image source={{ uri: item.image_url }} style={styles.image} resizeMode='stretch' />
                         ) : (
                             <Text style={styles.listMainText}>
-                                {item.name.substring(0, 1).toUpperCase()}
+                                {item.name?.substring(0, 1).toUpperCase()}
                             </Text>
                         )}
                     </View>

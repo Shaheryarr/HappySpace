@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuthentication, postLoginRequest } from '../../../SyncServices';
 import { setUser } from '../../../redux/actions';
 import { handleLogout, isInternetConnected } from '../../../constants';
+import SScreen from 'react-native-splash-screen'
 
 const SplashScreen = ({ navigation }) => {
 
@@ -40,19 +41,23 @@ const SplashScreen = ({ navigation }) => {
         if (user) {
             isInternetConnected().then(() => {
                 getUserAuthentication().then(res => {
+                    SScreen.hide()
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'appRoutes' }],
                     });
                 }).catch(err => {
+                    SScreen.hide()
                     handleLogout()
                 })
             }).catch(err => {
+                SScreen.hide()
                 Toast.show({
                     title: 'Unable to connect to the internet'
                 })
             })
         } else {
+            SScreen.hide()
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'GettingStarted' }],
@@ -83,6 +88,7 @@ const SplashScreen = ({ navigation }) => {
             } else if (ACTION[0] == 'forgot') {
                 const EMAIL = ACTION[1];
                 const PASSWORD = ACTION[2];
+                SScreen.hide()
                 navigation.reset({
                     routes: [
                         {
@@ -115,6 +121,7 @@ const SplashScreen = ({ navigation }) => {
                 console.log('USER', userDetails);
                 dispatch(setUser(userDetails)).then(() => {
                     setLoading(false)
+                    SScreen.hide()
                     navigation.reset({
                         routes: [
                             {
@@ -132,7 +139,7 @@ const SplashScreen = ({ navigation }) => {
                     title: 'We have sent a one time password to your email. Please verify',
                     duration: 5000
                 })
-
+                SScreen.hide()
                 navigation.navigate('OtpVerification', {
                     email,
                     fromLogin: true
@@ -144,6 +151,11 @@ const SplashScreen = ({ navigation }) => {
             Toast.show({
                 title: 'Invalid Credentials'
             })
+            SScreen.hide()
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'GettingStarted' }],
+            });
             return;
         })
     }

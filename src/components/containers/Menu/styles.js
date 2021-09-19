@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: themeStyleSheet.lightgray,
     marginLeft: 15,
-    padding: 5
+    padding: 5,
+    overflow: 'hidden'
   },
   itemName: {
     textAlign: 'center'

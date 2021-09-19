@@ -17,6 +17,7 @@ import {
   GET_QUIZ_QUESTIONS,
   UPDATE_USER,
   GET_QUIZ_LEADERBOARD,
+  SET_QUIZ_QUESTIONS,
 } from './apis';
 
 export const getQuizLeaderBoard = () => {
@@ -29,6 +30,40 @@ export const getQuizLeaderBoard = () => {
       })
       .catch(err => {
         console.log('getQuizLeaderboard err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
+
+export const postSetQuestions = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(SET_QUIZ_QUESTIONS, params, {
+        withCredentials: true,
+      })
+      .then(res => {
+        console.log('postSetQuestions res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('postSetQuestions err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
+
+export const getSetQuestions = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(SET_QUIZ_QUESTIONS, {
+        withCredentials: true,
+      })
+      .then(res => {
+        console.log('getSetQuestions res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('getSetQuestions err: ', err.response.data);
         reject(err);
       });
   });
@@ -343,6 +378,76 @@ export const deletePostById = PARAMS => {
       })
       .catch(err => {
         console.log('deletePost err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
+
+export const createComment = params => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(MANAGE_COMMENT, params, {
+        withCredentials: true,
+      })
+      .then(res => {
+        console.log('createComment res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('createComment err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
+
+export const getPostById = PARAMS => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GET_POST, {
+        withCredentials: true,
+        params: PARAMS,
+      })
+      .then(res => {
+        console.log('getPostById res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('getPostById err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
+
+export const likePostById = PARAMS => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MANAGE_LIKE, PARAMS, {
+        withCredentials: true,
+      })
+      .then(res => {
+        console.log('likePostById res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('likePostById err: ', err.response.data);
+        reject(err);
+      });
+  });
+};
+
+export const unlikePost = PARAMS => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(MANAGE_LIKE, {
+        withCredentials: true,
+        data: PARAMS,
+      })
+      .then(res => {
+        console.log('likePostById res: ', res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log('likePostById err: ', err.response.data);
         reject(err);
       });
   });

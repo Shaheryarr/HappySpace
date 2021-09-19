@@ -12,7 +12,7 @@ import GettingStarted from '../components/containers/GettingStarted';
 import OnboardEmployee from '../components/containers/OnboardEmployee';
 import AddWorkspace from '../components/containers/AddWorkspace';
 import AddMembers from '../components/containers/AddMembers';
-import Signup from '../components/containers/Signup';
+import Signup from '../components/containers/SignUp';
 import OtpVerification from '../components/containers/OtpVerification';
 import SelectWorkspace from '../components/containers/SelectWorkspace';
 import NewsFeed from '../components/containers/NewsFeed';

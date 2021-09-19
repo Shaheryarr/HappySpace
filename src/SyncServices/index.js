@@ -3,13 +3,76 @@ import {
   ADD_MEMBERS,
   ADD_WORKSPACE,
   CHANGE_PASSWORD_API,
+  CHECK_AUTH_API,
+  GET_QUIZ_PLAYERS,
   LOGIN_API,
+  MANAGE_POSTS,
   OTP_VERIFY_API,
   REQUEST_PASSWORD_API,
   RESEND_OTP_API,
   RESET_PASSWORD_API,
   SIGNUP_API,
+  UPLOAD_IMAGE_API,
 } from './apis';
+
+export const getUserQuizDetails = (workspace_id) => {
+    return new Promise((resolve, reject) => {
+        axios.get(GET_QUIZ_PLAYERS, {
+            params: {
+                workspace_id
+            },
+            withCredentials: true
+        }).then(res => {
+            console.log('getUserQuizDetails res: ', res.data);
+            resolve(res.data);
+        }).catch(err => {
+            console.log('getUserQuizDetails err: ', err.response.data);
+            reject(err);
+        })
+    })
+}
+
+export const getUserAuthentication = () => {
+    return new Promise((resolve, reject) => {
+        axios.get(CHECK_AUTH_API, {
+            withCredentials: true
+        }).then(res => {
+            console.log('getUserAuthentication res: ', res.data);
+            resolve(res.data);
+        }).catch(err => {
+            console.log('getUserAuthentication err: ', err.response.data);
+            reject(err);
+        })
+    })
+}
+
+export const createPost = params => {
+    return new Promise((resolve, reject) => {
+        axios.put(MANAGE_POSTS, params, {
+            withCredentials: true
+        }).then(res => {
+            console.log('createPost res: ', res.data);
+            resolve(res.data);
+        }).catch(err => {
+            console.log('createPost err: ', err.response.data);
+            reject(err);
+        })
+    })
+}
+
+export const postImageBase64 = params => {
+    return new Promise((resolve, reject) => {
+        axios.post(UPLOAD_IMAGE_API, params, {
+            withCredentials: true
+        }).then(res => {
+            console.log('postImageBase64 res: ', res.data);
+            resolve(res.data);
+        }).catch(err => {
+            console.log('postImageBase64 err: ', err.response.data);
+            reject(err);
+        })
+    })
+}
 
 export const postLoginRequest = params => {
   return new Promise((resolve, reject) => {

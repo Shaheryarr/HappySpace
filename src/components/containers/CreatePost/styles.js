@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderColor: themeStyleSheet.lightgray,
     flexDirection: 'row',
+    minHeight: height * 0.15,
     // alignItems: 'center'
   },
   postFirstRow: {
@@ -51,13 +52,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     bottom: 25,
-    position: 'absolute'
+    borderTopWidth: 0.5,
+    borderColor: themeStyleSheet.lightgray
+    // position: 'absolute'
   },
   uploadImageIconContainer: {
-    width: '20%',
+    width: '15%',
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 8,
   },
   icon: {
     color: themeStyleSheet.mainColor
@@ -68,10 +72,33 @@ const styles = StyleSheet.create({
     backgroundColor: themeStyleSheet.secondaryColor,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 25
+    borderRadius: 5
   },
   imageText: {
     fontSize: 16
+  },
+  imageContainer: {
+    width: '90%', 
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  image: {
+    width: width,
+    height: height * 0.7
+  },
+  editImageContainer: {
+    position: 'absolute',
+    top: 15,
+    right: 15
+  },
+  editImage: {
+    backgroundColor: themeStyleSheet.secondaryColor,
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5
   }
 });
 

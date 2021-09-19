@@ -1,4 +1,5 @@
 import NetInfo from '@react-native-community/netinfo';
+import { setUser, setWorkspaceData } from '../redux/actions';
 
 export const themeStyleSheet = {
     mainColor: '#416AF2',
@@ -25,6 +26,17 @@ export const isInternetConnected = () => {
         }).catch(err => {
             console.log('isInternetConnected Err : ', err);
             reject(err)
+        })
+    })
+}
+
+export const handleLogout = (dispatch, navigation) => {
+    dispatch(setUser(null)).then(() => {
+        dispatch(setWorkspaceData(null)).then(() => {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'GettingStarted' }],
+            });
         })
     })
 }

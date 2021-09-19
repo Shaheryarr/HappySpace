@@ -12,13 +12,15 @@ import GettingStarted from '../components/containers/GettingStarted';
 import OnboardEmployee from '../components/containers/OnboardEmployee';
 import AddWorkspace from '../components/containers/AddWorkspace';
 import AddMembers from '../components/containers/AddMembers';
-import Signup from '../components/containers/Signup';
+import Signup from '../components/containers/SignUp';
 import OtpVerification from '../components/containers/OtpVerification';
 import SelectWorkspace from '../components/containers/SelectWorkspace';
 import NewsFeed from '../components/containers/NewsFeed';
 import Profile from '../components/containers/Profile';
 import Menu from '../components/containers/Menu';
 import CreatePost from '../components/containers/CreatePost';
+import QuizDashboard from '../components/containers/QuizDashboard';
+import QuizChooseUser from '../components/containers/QuizChooseUser';
 
 const { height, width } = Dimensions.get("window");
 
@@ -71,6 +73,8 @@ const appRoutes = () => {
         <Stack.Navigator initialRouteName={'SplashScreen'} screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Tabs" component={Tabs} />
             <Stack.Screen name="CreatePost" component={CreatePost} />
+            <Stack.Screen name="QuizDashboard" component={QuizDashboard} />
+            <Stack.Screen name="QuizChooseUser" component={QuizChooseUser} />
         </Stack.Navigator>
     )
 }

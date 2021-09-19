@@ -1,6 +1,6 @@
 import { useToast } from 'native-base';
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { Image, SafeAreaView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { isInternetConnected } from '../../../constants';
 import { getUserQuizDetails } from '../../../SyncServices';
@@ -56,7 +56,7 @@ const QuizDashboard = ({ navigation }) => {
 
                 <View style={styles.mainContainer}>
                     <View style={styles.imageContainer}>
-                        <Text>Image Here</Text>
+                        <Image source={require('../../../assets/images/image1.png')} resizeMode='contain' style={{height: 350, width: 350}} />
                     </View>
 
                     <View style={styles.headingContainer}>

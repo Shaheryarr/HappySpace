@@ -34,15 +34,15 @@ export const getQuizQuestions = (email) => {
     })
 }
 
-export const postQuizQuestions = params => {
+export const postQuizAnswers = params => {
     return new Promise((resolve, reject) => {
         axios.post(GET_QUIZ_QUESTIONS, params, {
             withCredentials: true
         }).then(res => {
-            console.log('postQuizQuestions res: ', res.data);
+            console.log('postQuizAnswers res: ', res.data);
             resolve(res.data);
         }).catch(err => {
-            console.log('postQuizQuestions err: ', err.response.data);
+            console.log('postQuizAnswers err: ', err.response.data);
             reject(err);
         })
     })

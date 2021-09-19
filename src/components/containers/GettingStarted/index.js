@@ -5,6 +5,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import styles from './styles';
 import Button from '../../common/Buttons';
@@ -15,11 +16,8 @@ const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 1);
 
 const test = [
   {
-    name: 'tes',
-  },
-  {
-    name: 'ss',
-  },
+    name: 'image',
+  }
 ];
 
 const GettingStarted = ({navigation}) => {
@@ -36,7 +34,7 @@ const GettingStarted = ({navigation}) => {
   const renderItem = ({item, index}) => {
     return (
       <View style={styles.carouselItem}>
-        <Text>Here</Text>
+        <Image source={require('../../../assets/images/image2.png')} resizeMode={'contain'} style={{width: 400, height: 300}} />
       </View>
     );
   };

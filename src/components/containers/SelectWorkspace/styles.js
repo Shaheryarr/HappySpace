@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { themeStyleSheet } from "../../../constants";
-const { height, width } = Dimensions.get("window");
+import {StyleSheet, Dimensions} from 'react-native';
+import {themeStyleSheet} from '../../../constants';
+const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   notchContainer: {
@@ -9,13 +9,13 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: themeStyleSheet.mainColor
+    backgroundColor: themeStyleSheet.mainColor,
   },
   topContainer: {
     height: '85%',
     backgroundColor: themeStyleSheet.white,
     borderBottomLeftRadius: 35,
-    borderBottomRightRadius: 35
+    borderBottomRightRadius: 35,
   },
   bottomContainer: {
     height: '15%',
@@ -25,26 +25,26 @@ const styles = StyleSheet.create({
   },
   subText: {
     color: themeStyleSheet.white,
-    fontSize: 16
+    fontSize: 16,
   },
   mainText: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   secondaryContainer: {
     width: '90%',
     alignSelf: 'center',
     height: height * 0.15,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   otpHeading: {
     fontWeight: '700',
     fontSize: 18,
-    marginBottom: 5
+    marginBottom: 5,
   },
   buttonContainer: {
     height: height * 0.12,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   listItemContainer: {
     width: width * 0.9,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   listItemContainerSelected: {
     width: width * 0.9,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   listItemInitialContainer: {
     width: '25%',
@@ -86,22 +86,22 @@ const styles = StyleSheet.create({
     backgroundColor: themeStyleSheet.lightgray,
     height: 55,
     width: 55,
-    borderRadius: 55/2,
+    borderRadius: 55 / 2,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   listItemInitialSelected: {
     backgroundColor: themeStyleSheet.mainColor,
     height: 55,
     width: 55,
-    borderRadius: 55/2,
+    borderRadius: 55 / 2,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   listMainText: {
     color: themeStyleSheet.white,
     fontSize: 16,
-  }
+  },
 });
 
 export default styles;

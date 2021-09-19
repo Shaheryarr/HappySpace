@@ -1,18 +1,27 @@
 import {FlatList} from 'native-base';
 import React, {useCallback, useState} from 'react';
 import {Text, View, KeyboardAvoidingView} from 'react-native';
-import {EMAIL_PATTERN, themeStyleSheet} from '../../../constants';
+import {
+  EMAIL_PATTERN,
+  isInternetConnected,
+  themeStyleSheet,
+} from '../../../constants';
 import Buttons from '../../common/Buttons';
 import OutlineContainer from '../../common/OutlineContainer';
 import TextField from '../../common/TextField';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {addMembers} from '../../../SyncServices';
 
-const AddMembers = ({navigation, dispatch}) => {
+const AddMembers = ({navigation, route, dispatch}) => {
   const [member, setMember] = useState('');
   const [members, setMembers] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const {
+    params: {workspace},
+  } = route;
 
   const onChange = text => {
     setError('');
@@ -50,7 +59,35 @@ const AddMembers = ({navigation, dispatch}) => {
     setMembers([...members]);
   };
 
-  const onFinish = () => {};
+  const onFinish = () => {
+    isInternetConnected()
+      .then(() => {
+        setLoading(true);
+
+        let PARAMS = {
+          workspace_id: workspace.id,
+          emails: members,
+        };
+        console.log('PARAMS', PARAMS);
+        addMembers(PARAMS)
+          .then(res => {
+            const {status} = res;
+            if (status) navigation.navigate('appRoutes');
+          })
+          .catch(err => {
+            setLoading(false);
+
+            Toast.show({
+              title: err.response.data.message,
+            });
+          });
+      })
+      .catch(err => {
+        Toast.show({
+          title: 'Please connect to the internet',
+        });
+      });
+  };
 
   const renderItems = useCallback(
     ({item, index}) => (
@@ -72,7 +109,9 @@ const AddMembers = ({navigation, dispatch}) => {
       <OutlineContainer>
         <KeyboardAvoidingView style={styles.inputView} behavior={'padding'}>
           <Text style={styles.heading}>Welcome To HappySpace</Text>
-          <Text style={styles.subHeading}>Add members to workspace</Text>
+          <Text style={styles.subHeading}>
+            Invite members to {workspace?.name}
+          </Text>
           <View style={{alignItems: 'center'}}>
             <TextField
               placeholder="Enter Member Email"
@@ -93,13 +132,21 @@ const AddMembers = ({navigation, dispatch}) => {
               renderItem={renderItems}
             />
           </View>
-          <Buttons type="primary" title={'FINISH'} onPress={onFinish} />
+
+          <Buttons
+            type="primary"
+            title={members.length === 0 ? 'SKIP' : 'INVITE'}
+            onPress={
+              members.length === 0
+                ? () => navigation.navigate('appRoutes')
+                : onFinish
+            }
+            loading={loading}
+          />
         </KeyboardAvoidingView>
       </OutlineContainer>
     </>
   );
 };
-
-// const ListView = ({})
 
 export default AddMembers;

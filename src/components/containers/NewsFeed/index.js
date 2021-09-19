@@ -52,6 +52,10 @@ const NewsFeed = ({ navigation }) => {
         navigation.navigate('Profile')
     }
 
+    const handleCreatePost = () => {
+        navigation.navigate('CreatePost')
+    }
+
     const renderItem = () => {
         return (
             <Text>Post</Text>
@@ -89,7 +93,7 @@ const NewsFeed = ({ navigation }) => {
                 />
 
                 <View style={styles.fabContainer}>
-                    <Buttons type='primary' title={'Create a Post'} />
+                    <Buttons type='primary' title={'Create a Post'} onPress={handleCreatePost} />
                 </View>
             </SafeAreaView>
         </>

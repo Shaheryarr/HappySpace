@@ -112,9 +112,7 @@ const OtpVerification = ({ navigation, route }) => {
             <SafeAreaView style={styles.mainContainer}>
                 <KeyboardAvoidingView
                     behavior={Platform.OS == 'ios' ? 'padding' : undefined}
-                    style={{
-                        flex: 1,
-                    }}
+                    style={styles.mainContainer}
                 >
                     <View style={styles.topContainer}>
                         <CustomHeader firstIcon={'chevron-left'} onPressFirstIcon={handleBackAction} />

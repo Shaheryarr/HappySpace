@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useToast } from 'native-base';
 import { Linking, SafeAreaView, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { postLoginRequest } from '../../../SyncServices';
+import { getUserAuthentication, postLoginRequest } from '../../../SyncServices';
 import { setUser } from '../../../redux/actions';
+import { handleLogout, isInternetConnected } from '../../../constants';
 
 const SplashScreen = ({ navigation }) => {
 
@@ -16,7 +17,6 @@ const SplashScreen = ({ navigation }) => {
 
     const dispatch = useDispatch();
 
-
     useEffect(() => {
         Linking.getInitialURL().then(res => {
             formatLink(res);
@@ -25,12 +25,38 @@ const SplashScreen = ({ navigation }) => {
         console.log('User: ', user)
         console.log('Workspace: ', workspace)
 
+        handleAuthentication()
+
         const subscribe = Linking.addEventListener('url', handleLink);
 
         return () => {
             subscribe.remove();
         }
     }, [])
+
+    const handleAuthentication = () => {
+        if (user) {
+            isInternetConnected().then(() => {
+                getUserAuthentication().then(res => {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'appRoutes' }],
+                    });
+                }).catch(err => {
+                    handleLogout()
+                })
+            }).catch(err => {
+                Toast.show({
+                    title: 'Unable to connect to the internet'
+                })
+            })
+        } else {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'GettingStarted' }],
+            });
+        }
+    }
 
     const handleLink = ({ url }) => {
         console.log('LINK', url)
@@ -128,6 +154,7 @@ const SplashScreen = ({ navigation }) => {
             <Text onPress={() => navigate('GettingStarted')} >GETTINGSTARTED</Text>
             <Text onPress={() => navigate('OtpVerification')}>OTP</Text>
             <Text onPress={() => navigate('appRoutes')}>Home</Text>
+            <Text onPress={() => handleLogout(dispatch, navigation)}>Home</Text>
         </SafeAreaView>
     )
 }

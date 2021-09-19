@@ -16,7 +16,8 @@ const { width } = Dimensions.get('screen')
 
 const Post = ({
     item,
-    user
+    user,
+    navigation
 }) => {
 
     const [img, setImg] = useState(false);
@@ -34,8 +35,11 @@ const Post = ({
         })
     }
 
-    const navigateToPost = () => {
-
+    const navigateToPost = (shouldComment = false) => {
+        navigation.navigate('PostDetail', {
+            data: item,
+            shouldComment
+        })
     }
 
     const likePost = () => {
@@ -45,7 +49,7 @@ const Post = ({
     return (
         <>
             <TouchableOpacity
-                onPress={navigateToPost}
+                onPress={() => navigateToPost()}
                 style={styles.postContainer}
             >
                 <View style={styles.innerPost}>
@@ -75,6 +79,7 @@ const Post = ({
                     <Text style={styles.contentContainer}>{item.content}</Text>
                     {item.image_url ? (
                         <TouchableOpacity
+                            style={{ alignItems: 'center' }}
                             onPress={() => setImg(true)}
                         >
                             <Image
@@ -110,13 +115,16 @@ const Post = ({
                             />
                             <Text>{'Like'}</Text>
                         </TouchableOpacity>
-                        <View style={styles.likeBtn}>
+                        <TouchableOpacity 
+                            onPress={() => navigateToPost(true)}
+                            style={styles.likeBtn}
+                        >
                             <Icon
                                 name='comment'
                                 size={25}
                             />
                             <Text>{'Comment'}</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </TouchableOpacity>

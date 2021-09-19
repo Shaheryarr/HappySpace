@@ -98,6 +98,7 @@ const NewsFeed = ({ navigation }) => {
                             <Post
                                 item={item}
                                 user={user}
+                                navigation={navigation}
                             />
                         )
                     }}

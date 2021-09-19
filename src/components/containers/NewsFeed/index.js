@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
     FlatList,
+    Image,
     SafeAreaView,
     Text,
     TouchableOpacity,
@@ -100,23 +101,32 @@ const NewsFeed = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
 
-                <FlatList
-                    data={(posts.results).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <Post
-                                item={item}
-                                user={user}
-                                navigation={navigation}
-                            />
-                        )
-                    }}
-                    ListFooterComponent={() => {
-                        return (
-                            <View style={styles.bottomList} />
-                        )
-                    }}
-                />
+                {posts.length ? (
+                    <FlatList
+                        data={(posts.results).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <Post
+                                    item={item}
+                                    user={user}
+                                    navigation={navigation}
+                                />
+                            )
+                        }}
+                        ListFooterComponent={() => {
+                            return (
+                                <View style={styles.bottomList} />
+                            )
+                        }}
+                    />
+                ) : (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Image source={require('../../../assets/images/image3.png')} resizeMode='contain' style={{ height: 200, width: 200, top: -50 }} />
+
+                        <Text style={{ fontSize: 16 }}>Nothing new on the feed</Text>
+                        <Text style={{ fontSize: 16, fontWeight: '500' }}>Add your first post here</Text>
+                    </View>
+                )}
 
                 <View style={styles.fabContainer}>
                     <Buttons

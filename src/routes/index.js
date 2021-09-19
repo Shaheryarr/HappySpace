@@ -23,7 +23,11 @@ import QuizDashboard from '../components/containers/QuizDashboard';
 import QuizChooseUser from '../components/containers/QuizChooseUser';
 import QuizMain from '../components/containers/QuizMain';
 import PostDetail from '../components/containers/PostDetail';
+<<<<<<< HEAD
+import LeaderBoard from '../components/containers/LeaderBoard';
+=======
 import QuizSetQuestions from '../components/containers/QuizSetQuestions';
+>>>>>>> bd4b411c2f2df6cde3f35738ba047de0ccbccb77
 
 const {height, width} = Dimensions.get('window');
 
@@ -102,6 +106,7 @@ const rootRoutes = () => {
         <Stack.Screen name="OnboardEmployee" component={OnboardEmployee} />
         <Stack.Screen name="OtpVerification" component={OtpVerification} />
         <Stack.Screen name="SelectWorkspace" component={SelectWorkspace} />
+        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="appRoutes" component={appRoutes} />
       </Stack.Navigator>
     </NavigationContainer>

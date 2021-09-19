@@ -11,6 +11,7 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
@@ -237,6 +238,21 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
             {user?.email}
           </Text>
         </View>
+        <Pressable
+          onPress={() => navigation.navigate('LeaderBoard')}
+          style={styles.action}>
+          <MIcon name="leaderboard" color={'black'} size={20} />
+          <Text
+            style={[
+              styles.textInput,
+              {
+                color: 'black',
+              },
+            ]}>
+            LeaderBoard
+          </Text>
+          <Icon name="chevron-right" size={30} />
+        </Pressable>
         <Pressable
           onPress={() =>
             navigation.navigate('AddMembers', {

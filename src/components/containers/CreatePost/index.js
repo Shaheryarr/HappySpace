@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Dimensionsm,
+  Dimensions,
   Image,
 } from 'react-native';
 import {useSelector} from 'react-redux';

@@ -10,12 +10,12 @@ import Modal from 'react-native-modal';
 import { themeStyleSheet } from '../../../constants';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import { deletePostById } from '../../../SyncServices';
 
 const { width } = Dimensions.get('screen')
 
 const Post = ({
     item,
-    comments,
     user
 }) => {
 
@@ -26,7 +26,12 @@ const Post = ({
     }
     
     const deletePost = () => {
+        const PARAMS = {
+            post_id: parseInt(item.id),
+        }
+        deletePostById(PARAMS).then(res => {
 
+        })
     }
 
     const navigateToPost = () => {
@@ -88,10 +93,10 @@ const Post = ({
                                 size={20}
                                 color={themeStyleSheet.mainColor}
                             />
-                            <Text>{item.likes}</Text>
+                            <Text>{item.liked_by.length}</Text>
                         </View>
                         <View>
-                            <Text>{`${comments.length} comments`}</Text>
+                            <Text>{`${item.commented_by.length} comments`}</Text>
                         </View>
                     </View>
                     <View style={styles.likeCommentContainer}>

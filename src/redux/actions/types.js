@@ -5,3 +5,7 @@ export const USER = {
 export const WORKSPACE = {
     SET_WORKSPACE: 'SET_WORKSPACE'
 }
+
+export const POST = {
+    SET_POST: 'SET_POST'
+}

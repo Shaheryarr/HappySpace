@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import {
+    FlatList,
+    SafeAreaView,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { postToRedux } from '../../../redux/actions';
 import { getPosts } from '../../../SyncServices';
@@ -8,7 +14,6 @@ import Post from './Post';
 import styles from './styles';
 
 const NewsFeed = ({ navigation }) => {
-
     const user = useSelector(state => state.user);
     const workspace = useSelector(state => state.workspace);
     const posts = useSelector(state => state.post);
@@ -54,40 +59,44 @@ const NewsFeed = ({ navigation }) => {
 
     useEffect(() => {
         const PARAMS = {
-            workspace_id: parseInt(workspace.workspace_id)
-        }
-        getPosts(PARAMS).then(res => {
-            dispatch(postToRedux(res)).then(res => {
-                console.log('res', res);
+            workspace_id: parseInt(workspace.workspace_id),
+        };
+        getPosts(PARAMS)
+            .then(res => {
+                dispatch(postToRedux(res)).then(res => {
+                    console.log('res', res);
+                });
             })
-        }).catch(err => {
-            console.log('ERROR', err);
-        })
-    }, [])
+            .catch(err => {
+                console.log('ERROR', err);
+            });
+    }, []);
 
     const handleProfile = () => {
-        navigation.navigate('Profile')
-    }
+        navigation.navigate('Profile');
+    };
 
     const handleCreatePost = () => {
-        navigation.navigate('CreatePost')
-    }
+        navigation.navigate('CreatePost');
+    };
 
     const renderItem = () => {
-        return (
-            <Text>Post</Text>
-        )
-    }
+        return <Text>Post</Text>;
+    };
 
     return (
         <>
             <SafeAreaView style={styles.notchContainer} />
             <SafeAreaView style={styles.mainContainer}>
                 <View style={styles.headingContainer}>
-                    <Text style={styles.heading}>{workspace.workspace_name}</Text>
+                    <Text style={styles.heading}>{workspace?.workspace_name}</Text>
 
-                    <TouchableOpacity style={styles.profileContainer} onPress={handleProfile}>
-                        <Text style={styles.profileText}>{user?.name?.substring(0, 1).toUpperCase()}</Text>
+                    <TouchableOpacity
+                        style={styles.profileContainer}
+                        onPress={handleProfile}>
+                        <Text style={styles.profileText}>
+                            {user?.name?.substring(0, 1).toUpperCase()}
+                        </Text>
                     </TouchableOpacity>
                 </View>
 
@@ -110,11 +119,15 @@ const NewsFeed = ({ navigation }) => {
                 />
 
                 <View style={styles.fabContainer}>
-                    <Buttons type='primary' title={'Create a Post'} onPress={handleCreatePost} />
+                    <Buttons
+                        type="primary"
+                        title={'Create a Post'}
+                        onPress={handleCreatePost}
+                    />
                 </View>
             </SafeAreaView>
         </>
-    )
-}
+    );
+};
 
 export default NewsFeed;

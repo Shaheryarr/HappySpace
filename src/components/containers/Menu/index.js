@@ -1,19 +1,24 @@
 import React from 'react';
-import { FlatList, SafeAreaView, Text, View } from 'react-native';
+import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 
-const Menu = () => {
-    
+const Menu = ({ navigation }) => {
+
     const activities = [{
         name: 'How much do you know them?',
-        image: null
+        image: null,
+        screen: 'Quiz'
     }]
 
-    const renderItem = ({item, index}) => {
+    const handleNavigation = (item) => {
+        navigation.navigate(item.screen)
+    }
+
+    const renderItem = ({ item, index }) => {
         return (
-            <View style={styles.flatListItem}>
+            <TouchableOpacity style={styles.flatListItem} onPress={() => handleNavigation(item)}>
                 <Text style={styles.itemName}>{item.name}</Text>
-            </View>
+            </TouchableOpacity>
         )
     }
 

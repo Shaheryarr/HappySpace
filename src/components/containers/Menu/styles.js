@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headingContainer: {
-    height: height * 0.18,
+    height: height * 0.17,
     width: '90%',
     alignSelf: 'center',
     justifyContent: 'center'
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     flexWrap: 'wrap', 
     justifyContent: 'flex-start',
-    // paddingVertical: 10
+    paddingVertical: 5
   },
   flatListItem: {
     width: width * 0.45,

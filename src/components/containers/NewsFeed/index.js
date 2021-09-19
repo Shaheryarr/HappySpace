@@ -101,7 +101,7 @@ const NewsFeed = ({ navigation }) => {
                 </View>
 
                 <FlatList
-                    data={posts.results}
+                    data={(posts.results).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))}
                     renderItem={({ item, index }) => {
                         return (
                             <Post

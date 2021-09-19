@@ -361,3 +361,87 @@ export const deletePostById = PARAMS => {
             });
     });
 };
+
+export const createComment = params => {
+	return new Promise((resolve, reject) => {
+		axios.put(MANAGE_COMMENT, params, {
+			withCredentials: true
+		}).then(res => {
+			console.log('createComment res: ', res.data);
+			resolve(res.data);
+		}).catch(err => {
+			console.log('createComment err: ', err.response.data);
+			reject(err);
+		})
+	})
+}
+
+export const getPostById = (PARAMS) => {
+	return new Promise((resolve, reject) => {
+		axios
+			.get(GET_POST, {
+				withCredentials: true,
+				params: PARAMS
+			})
+			.then(res => {
+				console.log('getPostById res: ', res.data);
+				resolve(res.data);
+			})
+			.catch(err => {
+				console.log('getPostById err: ', err.response.data);
+				reject(err);
+			});
+	});
+}
+
+export const likePostById = PARAMS => {
+	return new Promise((resolve, reject) => {
+		axios
+			.post(MANAGE_LIKE, PARAMS, {
+				withCredentials: true,
+			})
+			.then(res => {
+				console.log('likePostById res: ', res.data);
+				resolve(res.data);
+			})
+			.catch(err => {
+				console.log('likePostById err: ', err.response.data);
+				reject(err);
+			});
+	});
+};
+
+export const unlikePost = PARAMS => {
+	return new Promise((resolve, reject) => {
+		axios
+			.delete(MANAGE_LIKE, {
+				withCredentials: true,
+				data: PARAMS
+			})
+			.then(res => {
+				console.log('likePostById res: ', res.data);
+				resolve(res.data);
+			})
+			.catch(err => {
+				console.log('likePostById err: ', err.response.data);
+				reject(err);
+			});
+	});
+};
+
+export const updateUser = PARAMS => {
+	return new Promise((resolve, reject) => {
+		axios
+			.post(UPDATE_USER, PARAMS, {
+				withCredentials: true,
+			})
+			.then(res => {
+				console.log('updateUser res: ', res.data);
+				resolve(res.data);
+			})
+			.catch(err => {
+				console.log('updateUser err: ', err.response.data);
+				reject(err);
+			});
+	});
+};

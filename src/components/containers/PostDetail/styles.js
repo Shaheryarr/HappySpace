@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     headingContainer: {
-		height: height * 0.1,
 		justifyContent: 'space-between',
 		paddingHorizontal: 15,
 		flexDirection: 'row',
@@ -76,6 +75,7 @@ const styles = StyleSheet.create({
 	innerPost: {
 		width: width * 0.9,
 		alignSelf: 'center',
+        flex: 1,
 		paddingVertical: 15,
 	},
 	author: {
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		width: '17%',
 	},
 	contentContainer: {
 		marginVertical: 30,
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: '50%'
+		width: '50%',
 	}
 });
 

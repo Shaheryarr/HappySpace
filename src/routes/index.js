@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -62,7 +62,7 @@ const Tabs = () => {
         tabBarIcon: ({color}) => screenOptions(route, color),
         tabBarActiveTintColor: themeStyleSheet.mainColor,
         tabBarShowLabel: false,
-        tabBarStyle: {height: height * 0.08},
+        tabBarStyle: Platform.OS == 'ios' ? { height: height * 0.1 } : { height: height * 0.08},
       })}>
       <Tab.Screen name="NewsFeed" component={NewsFeed} />
       <Tab.Screen name="Menu" component={Menu} />

@@ -123,7 +123,7 @@ const PostDetail = ({ navigation, route }) => {
                         <View style={styles.authorRow}>
                             <View style={styles.author}>
                                 <TouchableOpacity style={styles.profileContainer}>
-                                    <Text style={styles.profileText}>{post.created_by.substring(0, 1).toUpperCase()}</Text>
+                                    <Text style={styles.profileText}>{post.created_by?.substring(0, 1).toUpperCase()}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.authorName}>{post.created_by}</Text>
                             </View>

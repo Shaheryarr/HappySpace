@@ -57,7 +57,7 @@ const QuizChooseUser = ({ navigation, route }) => {
                             <Image source={{ uri: item.image_url }} style={styles.image} resizeMode='stretch' />
                         ) : (
                             <Text style={styles.listMainText}>
-                                {item.name.substring(0, 1).toUpperCase()}
+                                {item.name?.substring(0, 1).toUpperCase()}
                             </Text>
                         )}
                     </View>

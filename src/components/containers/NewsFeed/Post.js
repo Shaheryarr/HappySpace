@@ -57,11 +57,11 @@ const Post = ({
                     <View style={styles.authorRow}>
                         <View style={styles.author}>
                             <TouchableOpacity style={styles.profileContainer}>
-                                <Text style={styles.profileText}>{item.created_by.substring(0, 1).toUpperCase()}</Text>
+                                <Text style={styles.profileText}>{item.created_by?.substring(0, 1).toUpperCase()}</Text>
                             </TouchableOpacity>
                             <View>
                                 <Text style={styles.authorName}>{item.created_by}</Text>
-                                <Text style={styles.created_at}>{moment(item.created_at).format('DD-MMM-YYYY HH:mm A')}</Text>
+                                <Text style={styles.created_at}>{moment(item.created_at).format('DD-MMM-YYYY hh:mm A')}</Text>
                             </View>
                         </View>
                         {item.email == user?.email && (

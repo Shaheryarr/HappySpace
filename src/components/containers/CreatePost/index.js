@@ -115,7 +115,7 @@ const CreatePost = ({navigation}) => {
             <View style={styles.postFirstRow}>
               <View style={styles.initialContainer}>
                 <Text style={styles.initialText}>
-                  {user.name.substring(0, 1).toUpperCase()}
+                  {user.name?.substring(0, 1).toUpperCase()}
                 </Text>
               </View>
             </View>

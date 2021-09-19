@@ -60,13 +60,17 @@ const OnboardEmployee = ({ navigation, route }) => {
                     navigation.reset({
                         routes: [
                             {
-                                name: 'SelectWorkspace',
+                                name: 'Login',
                                 params: {
                                     // workspaces: user_workspaces
                                 }
                             }
                         ]
                     });
+                }).catch(err => {
+                    Toast.show({
+                        title: err.response.data.message
+                    })
                 })
             } else {
                 const PARAMS = {
@@ -77,10 +81,7 @@ const OnboardEmployee = ({ navigation, route }) => {
                         navigation.reset({
                             routes: [
                                 {
-                                    name: 'SelectWorkspace',
-                                    params: {
-                                        workspaces: user_workspaces
-                                    }
+                                    name: 'Login',
                                 }
                             ]
                         });
@@ -94,6 +95,14 @@ const OnboardEmployee = ({ navigation, route }) => {
             }
         }
     }
+
+    const resetRoutes = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'GettingStarted' }],
+        });
+    }
+
     return (
         <>
             <SafeAreaView style={styles.notchContainer} />
@@ -145,9 +154,9 @@ const OnboardEmployee = ({ navigation, route }) => {
                 <View style={styles.lowerView}>
                     <Text style={{ color: themeStyleSheet.white }}>{`Not ${email}? `}</Text>
                     <Text
-                        // onPress={navigateToRegister}
+                        onPress={resetRoutes}
                         style={styles.registerText}
-                    >Register Now</Text>
+                    >Go Back</Text>
                 </View>
             </SafeAreaView>
         </>

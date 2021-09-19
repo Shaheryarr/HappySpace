@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
     FlatList,
+    RefreshControl,
     SafeAreaView,
     Text,
     TouchableOpacity,
@@ -17,6 +18,7 @@ const NewsFeed = ({ navigation }) => {
     const user = useSelector(state => state.user);
     const workspace = useSelector(state => state.workspace);
     const posts = useSelector(state => state.post);
+    const [isRefresh, setRefresh] = useState(false);
 
     const dispatch = useDispatch();
     // const [posts, setPosts] = useState([
@@ -58,6 +60,11 @@ const NewsFeed = ({ navigation }) => {
     // ])
 
     useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = () => {
+        setRefresh(true);
         const PARAMS = {
             workspace_id: parseInt(workspace.workspace_id),
         };
@@ -69,8 +76,10 @@ const NewsFeed = ({ navigation }) => {
             })
             .catch(err => {
                 console.log('ERROR', err);
-            });
-    }, []);
+            }).finally(() => {
+                setRefresh(false);
+            })
+    }
 
     const handleProfile = () => {
         navigation.navigate('Profile');
@@ -101,6 +110,10 @@ const NewsFeed = ({ navigation }) => {
                 </View>
 
                 <FlatList
+                    refreshControl={<RefreshControl
+                        colors={["#9Bd35A", "#689F38"]}
+                        refreshing={isRefresh}
+                        onRefresh={getData} />}
                     data={(posts.results).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))}
                     renderItem={({ item, index }) => {
                         return (

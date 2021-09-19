@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		justifyContent: 'center',
 		borderRadius: 5,
+		backgroundColor: themeStyleSheet.white
 	},
 	textStyle: {
 		marginLeft: 10,

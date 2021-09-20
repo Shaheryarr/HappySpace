@@ -23,11 +23,8 @@ import QuizDashboard from '../components/containers/QuizDashboard';
 import QuizChooseUser from '../components/containers/QuizChooseUser';
 import QuizMain from '../components/containers/QuizMain';
 import PostDetail from '../components/containers/PostDetail';
-<<<<<<< HEAD
 import LeaderBoard from '../components/containers/LeaderBoard';
-=======
 import QuizSetQuestions from '../components/containers/QuizSetQuestions';
->>>>>>> bd4b411c2f2df6cde3f35738ba047de0ccbccb77
 
 const {height, width} = Dimensions.get('window');
 
@@ -66,7 +63,10 @@ const Tabs = () => {
         tabBarIcon: ({color}) => screenOptions(route, color),
         tabBarActiveTintColor: themeStyleSheet.mainColor,
         tabBarShowLabel: false,
-        tabBarStyle: Platform.OS == 'ios' ? { height: height * 0.1 } : { height: height * 0.08},
+        tabBarStyle:
+          Platform.OS == 'ios'
+            ? {height: height * 0.1}
+            : {height: height * 0.08},
       })}>
       <Tab.Screen name="NewsFeed" component={NewsFeed} />
       <Tab.Screen name="Menu" component={Menu} />

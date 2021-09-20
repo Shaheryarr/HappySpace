@@ -20,13 +20,16 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import styles from './styles';
 import Buttons from '../../common/Buttons';
 import {connect} from 'react-redux';
-import {handleLogout, isInternetConnected, themeStyleSheet} from '../../../constants';
+import {
+  handleLogout,
+  isInternetConnected,
+  themeStyleSheet,
+} from '../../../constants';
 import {postImageBase64, updateUser} from '../../../SyncServices';
 import {setUser} from '../../../redux/actions';
 import Modal from 'react-native-modal';
-import { flex } from 'styled-system';
 
-const { height, width } = Dimensions.get("window");
+const {height, width} = Dimensions.get('window');
 
 const config = {
   mediaType: 'photo',
@@ -38,7 +41,7 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
   const Toast = useToast();
   const [image, setImage] = useState(undefined);
   const [nameModal, setNameModal] = useState(false);
-  const [name, setName] = useState(user.name)
+  const [name, setName] = useState(user?.name);
   const takePhotoFromCamera = () => {
     launchCamera(config, res => {
       const {assets} = res;
@@ -97,15 +100,15 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
   };
 
   const updateName = () => {
-      let param = {
-          name
-      }
+    let param = {
+      name,
+    };
 
-      updateUser(param).then(() => {
-          setNameModal(false)
-          dispatch(setUser({...user, name}))
-      })
-  }
+    updateUser(param).then(() => {
+      setNameModal(false);
+      dispatch(setUser({...user, name}));
+    });
+  };
 
   const renderInner = () => (
     <View style={styles.panel}>
@@ -221,8 +224,16 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
             {user?.name}
           </Text>
 
-          <TouchableOpacity style={{marginTop: 10}} onPress={() => setNameModal(true)}>
-            <Text style={{color: themeStyleSheet.skyBlue, textDecorationLine: 'underline'}}>Edit</Text>
+          <TouchableOpacity
+            style={{marginTop: 10}}
+            onPress={() => setNameModal(true)}>
+            <Text
+              style={{
+                color: themeStyleSheet.skyBlue,
+                textDecorationLine: 'underline',
+              }}>
+              Edit
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -303,23 +314,41 @@ const Profile = ({user, workspace, navigation, dispatch}) => {
       </Animated.View>
 
       <Modal isVisible={nameModal} style={{margin: 0}}>
-          <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center',}}>
-              <View style={{height: height * 0.3, width, backgroundColor: themeStyleSheet.white, justifyContent: 'space-around', alignItems: 'center'}}>
-                  <View style={{width: '90%', borderBottomWidth: 1, borderColor: themeStyleSheet.lightgray}}>
-                      <TextInput
-                        placeholder={'Enter Name'}
-                        value={name}
-                        autoFocus={true}
-                        onChangeText={text => setName(text)}
-                        style={{fontSize: 16}}
-                      />
-                  </View>
+        <View
+          style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
+          <View
+            style={{
+              height: height * 0.3,
+              width,
+              backgroundColor: themeStyleSheet.white,
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            }}>
+            <View
+              style={{
+                width: '90%',
+                borderBottomWidth: 1,
+                borderColor: themeStyleSheet.lightgray,
+              }}>
+              <TextInput
+                placeholder={'Enter Name'}
+                value={name}
+                autoFocus={true}
+                onChangeText={text => setName(text)}
+                style={{fontSize: 16}}
+              />
+            </View>
 
-                  <View style={{height: height * 0.15, justifyContent: 'center', alignItems: 'center'}}>
-                      <Buttons type='primary' title='Save' onPress={updateName}/>
-                  </View>
-              </View>
+            <View
+              style={{
+                height: height * 0.15,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Buttons type="primary" title="Save" onPress={updateName} />
+            </View>
           </View>
+        </View>
       </Modal>
     </View>
   );

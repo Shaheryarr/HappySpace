@@ -48,7 +48,7 @@ const SplashScreen = ({ navigation }) => {
                     });
                 }).catch(err => {
                     SScreen.hide()
-                    handleLogout()
+                    handleLogout(dispatch, navigation)
                 })
             }).catch(err => {
                 SScreen.hide()

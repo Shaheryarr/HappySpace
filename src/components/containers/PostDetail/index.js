@@ -108,6 +108,7 @@ const PostDetail = ({ navigation, route }) => {
             setComment('');
             getPost();
         }).catch(err => {
+            console.log(err);
             Toast.show({
                 title: 'Something went wrong!'
             })
